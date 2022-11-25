@@ -21,7 +21,7 @@ const App = () => {
 };
 
 const Main = styled.div`
-
+  position: fixed;
 `;
 
 export default App;

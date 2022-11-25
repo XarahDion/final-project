@@ -5,7 +5,7 @@ const Header = () =>{
 
     return (
         <Wrapper>
-            <h2>Header</h2>
+            <h2>Globe Trotter</h2>
             <Container>
                 <Span>Login</Span>
                 <CiUser />

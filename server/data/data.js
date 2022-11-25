@@ -1,5 +1,11 @@
 const concerts = [
     {
+        date: "07/03/20",
+        venue: "La Vitrola",
+        city: "Montreal",
+        country: "Canada"
+    },
+    {
         date: "23/11/19",
         venue: "La Sala Rossa",
         city: "Montreal",
