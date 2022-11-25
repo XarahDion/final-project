@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const PORT = 8000;
 
 const {
-    getConcerts
+    getConcertsByYear
 } = require("./handlers")
 
 express()
@@ -25,6 +25,6 @@ express()
 .use(express.urlencoded({ extended: false }))
 .use("/", express.static(__dirname + "/"))
 
-.get("/api/concerts", getConcerts)
+.get("/api/concerts/:year", getConcertsByYear)
 
 .listen(PORT, () => console.info(`Listening on port ${PORT}`));

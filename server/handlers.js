@@ -10,12 +10,13 @@ const options = {
 };
 
 /// returns all items
-const getConcerts = async (req, res) => {
+const getConcertsByYear = async (req, res) => {
+    const year = req.params.year
     const client = new MongoClient(MONGO_URI, options);
     try {
         await client.connect();
         const db = client.db("final-project");
-        let result = await db.collection("concerts").find().toArray();
+        let result = await db.collection("concerts").find({ $text: { $search: year } }).toArray()
         res.status(200).json({ status: 200, data: result })
     } catch (err) {
         res.status(404).json({ status: 404, data: "Not Found" });
@@ -24,4 +25,4 @@ const getConcerts = async (req, res) => {
     }
 };
 
-module.exports = { getConcerts }
+module.exports = { getConcertsByYear }

@@ -662,7 +662,7 @@ const concerts = [
     {
         date: "24/05/15",
         venue: "Chmury", 
-        cty: "Warsaw",
+        city: "Warsaw",
         country: "Poland"
     },
     {
