@@ -4,13 +4,18 @@ export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [status, setStatus] = useState("loading");
     const [error, setError] = useState(false);
     const [travels, setTravels] = useState();
-    
+    const [selectedYear, setSelectedYear] = useState();
+
+    const handleChange = (e) => {
+      setSelectedYear(e.target.value);
+    }
+    console.log(selectedYear)
+
     useEffect ( () => {
-        if (!user) {
-        fetch('/api/concerts/2016')
+        if (selectedYear) {
+        fetch(`/concerts/${selectedYear}`)
         .then(results => results.json())
         .then ( data => {
             if(data.status === 400 || data.status === 500) {
@@ -18,16 +23,17 @@ const UserProvider = ({ children }) => {
             }
             else {
                 setTravels(data.data);
+                console.log("travels in context", travels)
             }
         })
         .catch((error) => {
             setError(true);
         })
         }
-    }, [])
+    }, [selectedYear])
     
     return (
-    <UserContext.Provider value={{ travels }}>
+    <UserContext.Provider value={{ travels, handleChange }}>
         {children}
     </UserContext.Provider>
     );

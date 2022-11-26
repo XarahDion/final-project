@@ -67,6 +67,13 @@ const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    button {
+        padding: 0px 4px;
+    }
+    label {
+        font-family: var(--font-body);
+        font-weight: 600;
+    }
 `;
 
 export default GlobalStyle;
