@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { CiUser } from "react-icons/ci";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from './UserContext';
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+import {useAuth0} from "@auth0/auth0-react";
+import logo from "../assets/loadingIcon.gif";
 
 const Header = () =>{
     const [years, setYears] = useState([]);
     const { handleChange } = useContext(UserContext)
+    const { user, isAuthenticated } = useAuth0();
 
     useEffect ( () => {
         fetch('/get-years')
@@ -48,13 +52,41 @@ const Header = () =>{
                 </label>
                 :<></>}
             </Container>
-            <Login>
-                <Span>Login</Span>
-                <CiUser />
-            </Login>
+            <Div>
+                {isAuthenticated ? 
+                <>
+                    <Greet>Hi, {user.given_name}</Greet>
+                    {user?.picture && <Img src={user.picture} alt={user?.name} />}
+                    <LogoutButton />
+                </>
+                :<></>}
+                {/* // : <Logo src={logo} alt="loading" />} */}
+                <LoginButton />
+            </Div>
         </Wrapper>
     )
 };
+
+
+const Logo = styled.img`
+    width: 40px;
+    height: 40px;
+`;
+
+const Img = styled.img`
+    border-radius: 50%;
+    height: 40px;
+`
+
+const Div = styled.div`
+    display:flex;
+    align-items: center;
+    gap: 8px;
+`
+
+const Greet = styled.h4`
+
+`
 
 const Select = styled.select`
     padding: 5px;
@@ -74,20 +106,7 @@ const Title = styled.h3`
         cursor: pointer;
     }
 `
-const Span = styled.p`
-    margin-right: 8px;
-`
-const Login= styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    &:hover{
-        cursor: pointer;
-    }
-`
+
 const Wrapper = styled.div`
     margin: 0px 24px;
     display: flex;

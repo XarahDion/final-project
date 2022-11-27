@@ -1,9 +1,8 @@
 import { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { UserContext } from './UserContext';
-import { useNavigate, Link } from "react-router-dom";
-mapboxgl.accessToken = 'pk.eyJ1IjoieGFyYWgiLCJhIjoiY2xhdHp2MDYwMDFuMzNvcHI5Mm9naTM4dCJ9.COQGEwQjZcwIphfpGORnbQ'
-
+import { useNavigate } from "react-router-dom";
+mapboxgl.accessToken = "pk.eyJ1IjoieGFyYWgiLCJhIjoiY2xhdHp2MDYwMDFuMzNvcHI5Mm9naTM4dCJ9.COQGEwQjZcwIphfpGORnbQ"
 
 const Home = ({selectedYear}) =>{
     const mapContainer = useRef(null);
@@ -42,10 +41,6 @@ const Home = ({selectedYear}) =>{
                             <button id=${travel.city} type="submit">${travel.city}</button>
                         </form>`)
                 )
-            .addTo(map.current)
-            // document.getElementsByClassName('popup').addEventListener("click", () => {
-            //     navigate(`/${travel.city}/${travel.country}`);
-            //     })   
         })
         }
     }, [travels])
