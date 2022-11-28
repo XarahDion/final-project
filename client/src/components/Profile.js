@@ -7,16 +7,17 @@ const Profile = () => {
     return (
         isAuthenticated && (
             <>
-                <Span>{JSON.stringify(user)}</Span>
-                <img src={user.picture} />
+            <Span>{JSON.stringify(user)}</Span>
+            <Img src={user.picture} />
             </>
         )
     )
 };
 
-
+const Img = styled.img`
+    border-radius: 50px;
+`
 const Span = styled.span`
-
 `
 
 export default Profile;

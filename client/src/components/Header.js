@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserContext } from './UserContext';
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -37,8 +37,7 @@ const Header = () =>{
                     Xarah Dion Concerts:
                     <Select onChange={handleChange}>
                     <option value="">Select a year...</option>
-                    {
-                    !years
+                    {!years
                     ? <h1>Loading...</h1>
                     : years.map ((year) => {
                         return  (
@@ -55,8 +54,10 @@ const Header = () =>{
             <Div>
                 {isAuthenticated ? 
                 <>
-                    <Greet>Hi, {user.given_name}</Greet>
-                    {user?.picture && <Img src={user.picture} alt={user?.name} />}
+                    <Greet>Hi, {user.name}</Greet>
+                    {user?.picture && 
+                    <Profile async="on" to="/profile"><Img src={user.picture} alt={user?.name} /></Profile>
+                    }
                     <LogoutButton />
                 </>
                 :<></>}
@@ -67,6 +68,9 @@ const Header = () =>{
     )
 };
 
+const Profile = styled(Link)`
+    cursor: pointer;
+`
 
 const Logo = styled.img`
     width: 40px;
@@ -84,8 +88,7 @@ const Div = styled.div`
     gap: 8px;
 `
 
-const Greet = styled.h4`
-
+const Greet = styled.h5`
 `
 
 const Select = styled.select`
@@ -114,4 +117,5 @@ const Wrapper = styled.div`
     justify-content: space-between;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 `
+
 export default Header;

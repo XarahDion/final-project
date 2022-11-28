@@ -5,7 +5,7 @@ const { MONGO_URI } = process.env;
 const { v4: uuidv4 } = require("uuid");
 const net = require('follow-redirects').https;
 const fs = require('fs');
-const auth_key = Buffer.from('f37fb2214f8b2c0736853677b7704ea1:fe0451589f943f7aa571f200a8fcae30').toString('base64');
+const auth_key = Buffer.from(process.env.ROAD_GOAT_AUTH_KEY).toString('base64');
 
 const options = {
     useNewUrlParser: true,

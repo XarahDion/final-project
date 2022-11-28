@@ -1,17 +1,20 @@
 import { useEffect, useState, createContext } from "react";
+import {useAuth0} from "@auth0/auth0-react";
+import usePersistedState from "../hooks/usePersistedState";
 
 export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
     const [error, setError] = useState(false);
     const [travels, setTravels] = useState();
-    const [selectedYear, setSelectedYear] = useState();
+    const [selectedYear, setSelectedYear] = usePersistedState(null, "selectedYear");
+    const { user, isAuthenticated } = useAuth0();
+
+    // console.log("user in context", user)
 
     const handleChange = (e) => {
-      setSelectedYear(e.target.value);
+        setSelectedYear(e.target.value);
     }
-    console.log(selectedYear)
 
     useEffect ( () => {
         if (selectedYear) {
@@ -23,7 +26,6 @@ const UserProvider = ({ children }) => {
             }
             else {
                 setTravels(data.data);
-                console.log("travels in context", travels)
             }
         })
         .catch((error) => {
@@ -33,7 +35,7 @@ const UserProvider = ({ children }) => {
     }, [selectedYear])
     
     return (
-    <UserContext.Provider value={{ travels, handleChange }}>
+    <UserContext.Provider value={{ travels, handleChange, selectedYear }}>
         {children}
     </UserContext.Provider>
     );

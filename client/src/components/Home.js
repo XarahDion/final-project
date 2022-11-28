@@ -1,46 +1,71 @@
 import { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { UserContext } from './UserContext';
-import { useNavigate } from "react-router-dom";
-mapboxgl.accessToken = "pk.eyJ1IjoieGFyYWgiLCJhIjoiY2xhdHp2MDYwMDFuMzNvcHI5Mm9naTM4dCJ9.COQGEwQjZcwIphfpGORnbQ"
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
-const Home = ({selectedYear}) =>{
+const Home = () =>{
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [coords, setCoords] = useState([9.1829, 48.7758]);
-    const [zoom, setZoom] = useState(4);
-    const { travels } = useContext(UserContext)
-    const navigate = useNavigate();
+    const [zoom, setZoom] = useState(7);
+    const [bearing, setBearing] = useState(0);
+    const [pitch, setPitch] = useState(65);
+    const { travels, selectedYear } = useContext(UserContext)
 
     useEffect(() => {
-        if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v12',
-            center: coords,
-            zoom: zoom
+            center: [-73.5698065, 45.5031824],
+            zoom: zoom,
+            bearing: bearing,
+            pitch: pitch
         });
         const nav = new mapboxgl.NavigationControl({
             visualizePitch: true,
         });
         map.current.addControl(nav, 'top-right');
-    });
+        new mapboxgl.Marker({
+            color: "black",
+            scale: 0.75
+        })
+        .setLngLat([-73.5698065, 45.5031824])
+        .addTo(map.current)
+        .setPopup(new mapboxgl.Popup({
+            closeButton: false,
+            offset: 26
+        })
+        .setHTML(`<form action=/cities/Montreal/Canada >
+                    <button id=Montreal type="submit">Montreal</button>
+                </form>`)
+        )
+    }, [selectedYear]);
 
     useEffect(() => {
         if (travels) {
-            console.log("travels in home", travels)
-        Object.values(travels).forEach((travel) => {
-            new mapboxgl.Marker({
+            map.current.flyTo({
+                center: travels[1].coordinates,
+                duration: 12000, // Animate over 12 seconds
+                essential: true,
+                zoom: 3.5,
+                pitch: 0,
+            })
+        Object.values(travels).map((travel) => {
+            if (travel.city !== "Montreal")
+            return new mapboxgl.Marker({
                 color: "black",
                 scale: 0.75
             })
             .setLngLat(travel.coordinates)
             .addTo(map.current)
-            .setPopup(new mapboxgl.Popup({ className: "popup", closeButton: false, offset: 26 })
-                .setHTML(`<form action=/cities/${travel.city}/${travel.country} >
-                            <button id=${travel.city} type="submit">${travel.city}</button>
-                        </form>`)
-                )
+            .setPopup(new mapboxgl.Popup({
+                closeButton: false,
+                offset: 26
+            })
+            .setHTML(`<form action=/cities/${travel.city}/${travel.country} >
+                        <button id=${travel.city} type="submit">${travel.city}</button>
+                    </form>`)
+            )
         })
         }
     }, [travels])
