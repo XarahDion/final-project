@@ -6,7 +6,11 @@ const PORT = 8000;
 const {
     getConcertsByYear,
     getCity,
-    getYears
+    getYears,
+    addTravel,
+    getTravelsByYear,
+    getUserYears,
+    getAllTravels
 } = require("./handlers")
 
 express()
@@ -30,5 +34,9 @@ express()
 .get("/concerts/:year", getConcertsByYear)
 .get("/cities/:city", getCity)
 .get("/get-years", getYears)
+.post("/travels", addTravel)
+.get("/travels/:username/:year", getTravelsByYear)
+.get("/get-years/:username", getUserYears)
+.get("/get-travels/:username", getAllTravels)
 
 .listen(PORT, () => console.info(`Listening on port ${PORT}`));

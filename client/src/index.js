@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 import App from './components/App';
-import UserProvider from './components/UserContext';
+import UserProvider from './components/hooks/UserContext';
 import {Auth0Provider} from "@auth0/auth0-react"
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;

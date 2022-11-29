@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { UserContext } from './UserContext';
+import { UserContext } from '../hooks/UserContext';
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import {useAuth0} from "@auth0/auth0-react";
-import logo from "../assets/loadingIcon.gif";
+import logo from "../../assets/loadingIcon.gif";
+import { FiGlobe } from "react-icons/fi";
 
 const Header = () =>{
     const [years, setYears] = useState([]);
-    const { handleChange } = useContext(UserContext)
+    const { handleYears } = useContext(UserContext)
     const { user, isAuthenticated } = useAuth0();
 
     useEffect ( () => {
+        if (!user)
         fetch('/get-years')
         .then(results => results.json())
         .then ( data => {
@@ -28,14 +30,36 @@ const Header = () =>{
         })
     }, [])
 
+    useEffect ( () => {
+        if (user)
+        fetch(`/get-years/${user.name}`)
+        .then(results => results.json())
+        .then ( data => {
+            if(data.status === 400 || data.status === 500) {
+                throw new Error(data.message);
+            }
+            else {
+                setYears(data.data);
+            }
+        })
+        .catch((error) => {
+            console.log("error");
+        })
+    }, [user])
+
     return (
         <Wrapper>
-            <Title onClick={() => {window.location.href = '/';}}>Globe Trotter</Title>
+            <Div>
+                <Greet onClick={() => {window.location.href = '/';}}>
+                    <FiGlobe /> 
+                    <Span>Earth Trotter</Span>
+                </Greet>
+            </Div>
             <Container>
                 {useLocation().pathname === "/" ?
                 <label>
-                    Xarah Dion Concerts:
-                    <Select onChange={handleChange}>
+                    {user? `${user.name} Travels :` : "Xarah Dion Concerts :"}
+                    <Select onChange={handleYears}>
                     <option value="">Select a year...</option>
                     {!years
                     ? <h1>Loading...</h1>
@@ -54,11 +78,15 @@ const Header = () =>{
             <Div>
                 {isAuthenticated ? 
                 <>
-                    <Greet>Hi, {user.name}</Greet>
-                    {user?.picture && 
-                    <Profile async="on" to="/profile"><Img src={user.picture} alt={user?.name} /></Profile>
-                    }
-                    <LogoutButton />
+                <Profile async="on" to="/profile">
+                    <Greet>
+                        {user.name}
+                        {user?.picture && 
+                        <Img src={user.picture} alt={user?.name} />
+                        }
+                    </Greet>
+                </Profile>
+                <LogoutButton />
                 </>
                 :<></>}
                 {/* // : <Logo src={logo} alt="loading" />} */}
@@ -79,7 +107,8 @@ const Logo = styled.img`
 
 const Img = styled.img`
     border-radius: 50%;
-    height: 40px;
+    height: 20px;
+    margin-left: 5px;
 `
 
 const Div = styled.div`
@@ -88,34 +117,43 @@ const Div = styled.div`
     gap: 8px;
 `
 
-const Greet = styled.h5`
+const Greet = styled.button`
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    background-color: black;
+    &:hover{
+        cursor: pointer;
+        transition: 0.25s;
+    }
 `
 
 const Select = styled.select`
-    padding: 5px;
+    padding: 1px;
     margin-left: 5px;
     border-radius: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    border: solid 2px var(--border-color);
 `
 const Container = styled.div`
     display: flex;
     flex-direction: column;
 `
-
-const Title = styled.h3`
-    &:hover{
-        cursor: pointer;
-    }
+const Span = styled.p`
+    margin-left: 6px;
 `
 
 const Wrapper = styled.div`
-    margin: 0px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    background: black;
 `
 
 export default Header;

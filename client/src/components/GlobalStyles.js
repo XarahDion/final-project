@@ -3,9 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
     :root {
         --font-body: 'Barlow', sans-serif;
-        --padding-page: 34px;
-        --background-color: white;
-        --border-color: #F6F7FB;
+        --border-color: #E8E8E8;
     }
 
     html, body, div, span, applet, object, iframe,
@@ -73,6 +71,13 @@ const GlobalStyle = createGlobalStyle`
     label {
         font-family: var(--font-body);
         font-weight: 600;
+        color: white;
+    }
+    option {
+        font-size: 12px;
+    }
+    a {
+        text-decoration: none;
     }
 `;
 

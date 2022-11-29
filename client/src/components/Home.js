@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { UserContext } from './UserContext';
+import { UserContext } from './hooks/UserContext';
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
 const Home = () =>{
@@ -10,12 +10,12 @@ const Home = () =>{
     const [zoom, setZoom] = useState(7);
     const [bearing, setBearing] = useState(0);
     const [pitch, setPitch] = useState(65);
-    const { travels, selectedYear } = useContext(UserContext)
+    const { concerts, travels, selectedYear } = useContext(UserContext)
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
+            style: 'mapbox://styles/xarah/clb2a8jp2000314mkyrl23ksw',
             center: [-73.5698065, 45.5031824],
             zoom: zoom,
             bearing: bearing,
@@ -26,7 +26,7 @@ const Home = () =>{
         });
         map.current.addControl(nav, 'top-right');
         new mapboxgl.Marker({
-            color: "black",
+            color: "red",
             scale: 0.75
         })
         .setLngLat([-73.5698065, 45.5031824])
@@ -39,16 +39,47 @@ const Home = () =>{
                     <button id=Montreal type="submit">Montreal</button>
                 </form>`)
         )
+
     }, [selectedYear]);
 
     useEffect(() => {
-        if (travels) {
+        if (concerts) {
             map.current.flyTo({
-                center: travels[1].coordinates,
+                center: [9.1829, 48.7758],
                 duration: 12000, // Animate over 12 seconds
                 essential: true,
                 zoom: 3.5,
                 pitch: 0,
+            })
+        Object.values(concerts).map((travel) => {
+            if (travel.city !== "Montreal")
+            return new mapboxgl.Marker({
+                color: "black",
+                scale: 0.75
+            })
+            .setLngLat(travel.coordinates)
+            .addTo(map.current)
+            .setPopup(new mapboxgl.Popup({
+                closeButton: false,
+                offset: 26
+            })
+            .setHTML(`<form action=/cities/${travel.city}/${travel.country} >
+                        <button id=${travel.city} type="submit">${travel.city}</button>
+                    </form>`)
+            )
+        })
+        }
+    }, [concerts])
+
+    useEffect(() => {
+        if (travels) {
+            setCoords(travels[0].coordinates)
+            map.current.flyTo({
+                center: travels[0].coordinates,
+                duration: 12000, // Animate over 12 seconds
+                essential: true,
+                zoom: 3.5,
+                pitch: 25,
             })
         Object.values(travels).map((travel) => {
             if (travel.city !== "Montreal")

@@ -105,7 +105,7 @@ const Div = styled.div`
 `
 const Title = styled.div`
     font-family: var(--font-body);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     font-family: var(--font-body);
     font-weight: bold;
@@ -114,7 +114,7 @@ const Title = styled.div`
     left: 24px;
     background: rgba(204, 204, 204, 0.7);
     width: 200px;
-    padding: 12px 0px;
+    padding: 10px 0px;
     border-radius: 6px;
     text-align: center;
 `
