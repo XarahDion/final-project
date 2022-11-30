@@ -72,7 +72,7 @@ const City = () => {
 }
 
 const KnownDiv = styled.div`
-    margin: 24px 12px;
+    margin: 24px 10px;
 `
 const Span = styled.span`
     line-height: 20px;

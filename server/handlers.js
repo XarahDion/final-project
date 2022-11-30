@@ -222,6 +222,30 @@ const updateTravel = async (req, res) => {
     }
 };
 
+// for a given user, returns a single travel by _id
+const getTravelById= async (req, res) => {
+    const { username, _id } = req.params
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        await client.connect();
+        const db = client.db("final-project");
+        let result = await db.collection(`${username}`).findOne({ _id })
+        let newResult = {
+            _id: result._id,
+            date: result.date,
+            venue: result.venue,
+            city: result.city,
+            country: result.country
+        }
+        res.status(200).json({ status: 200, data: newResult })
+    } catch (err) {
+        res.status(404).json({ status: 404, data: "Not Found" });
+    } finally {
+    client.close();
+    }
+};
+
 module.exports = { 
     getConcertsByYear,
     getCity,
@@ -230,6 +254,7 @@ module.exports = {
     getUserYears,
     getTravelsByYear,
     getAllTravels,
+    getTravelById,
     deleteTravel,
     updateTravel
 }

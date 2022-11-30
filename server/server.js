@@ -7,12 +7,13 @@ const {
     getConcertsByYear,
     getCity,
     getYears,
-    addTravel,
     getTravelsByYear,
     getUserYears,
     getAllTravels,
+    getTravelById,
     deleteTravel,
-    updateTravel
+    updateTravel,
+    addTravel,
 } = require("./handlers")
 
 express()
@@ -39,6 +40,7 @@ express()
 .get("/travels/:username/:year", getTravelsByYear)
 .get("/get-years/:username", getUserYears)
 .get("/get-travels/:username", getAllTravels)
+.get("/get-travel/:username/:_id", getTravelById)
 .post("/travels", addTravel)
 .delete("/delete-travel/:username/:_id", deleteTravel)
 .patch("/update-travel/:username/:_id", updateTravel)

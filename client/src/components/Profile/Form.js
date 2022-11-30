@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
 import Input from "./Input"
 
 /// renders the form component
-const Form = ({ handleSubmit }) => {
-    const [formData, setFormData] = useState();
-
+const Form = ({ handleSubmit, handleUpdate, formData, setFormData }) => {
+    const [state, setState]= useState("")
 /// registers what is inputted in the input fields 
+
+    useEffect (() => {
+        if (formData) {
+            setState(formData.date)
+        }
+    }, [formData])
+
     const handleChange = (key, value) => {
         setFormData({
             ...formData,
@@ -27,6 +33,7 @@ const Form = ({ handleSubmit }) => {
                     placeholder="DD/MM/YYY"
                     name={"date"}
                     required={true}
+                    data={formData && formData.date}
                     handleChange={handleChange} 
                 />
                 <Input 
@@ -34,6 +41,7 @@ const Form = ({ handleSubmit }) => {
                     placeholder="Places visited or comment"
                     name={"venue"}
                     required={true}
+                    data={formData && formData.venue}
                     handleChange={handleChange} 
                 />
             </InDiv>
@@ -43,6 +51,7 @@ const Form = ({ handleSubmit }) => {
                     placeholder="City (no blank spaces)"
                     name={"city"}
                     required={true}
+                    data={formData && formData.city}
                     handleChange={handleChange} 
                 />
                 <Input 
@@ -50,15 +59,24 @@ const Form = ({ handleSubmit }) => {
                     placeholder="Country"
                     name={"country"}
                     required={true}
+                    data={formData && formData.country}
                     handleChange={handleChange} 
                 />
             </InDiv>
             {/* the Submit button fires the handleSubmit function */}
-            <Button type="submit" >Add Travel</Button>
+            <BtnDiv>
+                <Button type="submit" > Add Travel </Button>
+                <Button type="button" onClick={(e) => handleUpdate(e, formData)} > Update Travel </Button>
+            </BtnDiv>
         </StyledForm>
     )
 };
 
+const BtnDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+`
 const DetDiv = styled.div`
     justify-content: space-between;
 `
@@ -74,29 +92,22 @@ const InstDiv = styled.div `
     padding: 0px 80px;
 `
 const Button = styled.button`
-    width: 200px;
+    width: 160px;
     margin-top: 15px;
     border-radius: 5px;
     align-self: center;
-    font-size: 12px;
-    height: 40px;
+    font-size: 11px;
+    height: 30px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     &:hover{
         cursor: pointer;
+        background-color: white;
     }
-    &:disabled{
-        color: grey;
-    }
-    &:active {
-            transform: scale(0.98);
-            transition: 0.5s;
-            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-        }
 `
 const StyledForm = styled.form`
     max-width: 700px;
     margin: 0px 0px 0px 34px;
-    padding: 24px 0px;
+    padding: 29px 0px;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;

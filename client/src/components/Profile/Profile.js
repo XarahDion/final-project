@@ -6,10 +6,39 @@ import { useState } from "react";
 
 const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
-    const [travelState, setTravelState] = useState()
+    const [travelState, setTravelState] = useState();
+    const [formData, setFormData] = useState();
+
+    const handleUpdate = (e, formData) => {
+        e.preventDefault();
+        fetch(`/update-travel/${user.name}/${formData._id}`, {
+            method: "PATCH",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ /// sends the data to the BE in key/value pairs
+                date: formData.date,
+                venue: formData.venue,
+                city: formData.city,
+                country: formData.country,
+            })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.status >= 300) {
+                console.log(data.message)
+            } else {
+                setTravelState(data.data.modifiedCount)
+                setFormData("")
+                console.log(data.data)
+            }
+        })
+    }
 
     const handleRemove = (e, travel) => {
         e.preventDefault();
+        e.stopPropagation();
         fetch(`/delete-travel/${user.name}/${travel._id}`, {
             method: "DELETE"
         })
@@ -43,11 +72,12 @@ const Profile = () => {
         .then(res => res.json())
         .then((data) => {
             if(data.status >= 300) {
-                window.alert(data.message);
+                console.log(data.message);
             }
             else {
                 console.log(data.data)
                 setTravelState(data.data.insertedId)
+                setFormData("")
             }
         })
         .catch((error) => {
@@ -58,16 +88,22 @@ const Profile = () => {
     return (
         isAuthenticated && (  
             <Main> 
-            <Div>
-                <ImgDiv>
-                    <Img src={user.picture} />
-                    <Name>{user.name}</Name>
-                </ImgDiv>
-                {/* the Form component is passed the handleSubmit function */}
-                <Form handleSubmit={handleSubmit} />
-            </Div>
-            <Travels travelState={travelState}
-                    handleRemove={handleRemove} />
+                <Div>
+                    <ImgDiv>
+                        <Img async="on" src={user.picture} />
+                        <Name>{user.name}'s Profile</Name>
+                    </ImgDiv>
+                    {/* the Form component is passed the handleSubmit function */}
+                    <Form handleSubmit={handleSubmit}
+                        formData={formData}
+                        setFormData={setFormData}
+                        handleUpdate={handleUpdate} />
+                </Div>
+                <Travels travelState={travelState}
+                        handleRemove={handleRemove}
+                        handleUpdate={handleUpdate}
+                        setFormData={setFormData}
+                        formData={formData} />
             </Main> 
         )
     )

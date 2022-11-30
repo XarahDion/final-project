@@ -1,13 +1,14 @@
 import styled from "styled-components"
 
 // renders the input field for the form
-const Input = ({type, placeholder, name, required, handleChange}) => {
+const Input = ({type, placeholder, name, required, handleChange, data}) => {
     
     return (
         <StyledInput 
             type={type} 
             placeholder={placeholder} 
             required={required} 
+            value={data}
             // send the text to form with handleChange
             onChange={(e) => handleChange(name, e.target.value)}
         />

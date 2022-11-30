@@ -76,11 +76,11 @@ const Header = () =>{
             <Div>
                 {isAuthenticated ? 
                 <>
-                <Profile async="on" to="/profile">
+                <Profile to="/profile">
                     <Greet>
                         {user.name}
                         {user?.picture && 
-                        <Img src={user.picture} alt={user?.name} />
+                        <Img async="on" src={user.picture} alt={user?.name} />
                         }
                     </Greet>
                 </Profile>
