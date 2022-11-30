@@ -2,9 +2,11 @@ import {useAuth0} from "@auth0/auth0-react";
 import styled from "styled-components";
 import Form from "./Form";
 import Travels from "./Travels";
+import { useEffect, useState} from "react";
 
 const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
+    const [travelState, setTravelState] = useState()
 
     const handleSubmit = (e, formData) => {
         e.preventDefault();
@@ -29,16 +31,17 @@ const Profile = () => {
             }
             else {
                 console.log(data.data)
+                setTravelState(data.data.insertedId)
             }
         })
         .catch((error) => {
             window.alert(error);
         })
-        }
+    }
 
     return (
         isAuthenticated && (  
-            <> 
+            <Main> 
             <Div>
                 <ImgDiv>
                     <Img src={user.picture} />
@@ -47,12 +50,15 @@ const Profile = () => {
                 {/* the Form component is passed the handleSubmit function */}
                 <Form handleSubmit={handleSubmit} />
             </Div>
-            <Travels />
-            </> 
+            <Travels travelState={travelState} />
+            </Main> 
         )
     )
 };
 
+const Main =styled.div`
+    overflow-x: hidden;
+`
 const Img = styled.img`
     border-radius: 5px;
     height: 150px;
@@ -61,7 +67,6 @@ const Logo = styled.img`
     width: 50px;
     height: 50px;
 `
-
 const Name = styled.div`
     font-weight: 600;
     margin-top: 12px;

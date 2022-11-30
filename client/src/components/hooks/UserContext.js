@@ -7,10 +7,10 @@ export const UserContext = createContext(null);
 const UserProvider = ({ children }) => {
     const [error, setError] = useState(false);
     const [concerts, setConcerts] = useState();
-    const [selectedYear, setSelectedYear] = usePersistedState(null, "selectedYear");
+    const [selectedYear, setSelectedYear] = useState();
     const [travels, setTravels] = useState();
     const { user } = useAuth0();
-    // console.log(user)
+
     const handleYears = (e) => {
         setSelectedYear(e.target.value);
     }

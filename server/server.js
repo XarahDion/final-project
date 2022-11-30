@@ -34,9 +34,9 @@ express()
 .get("/concerts/:year", getConcertsByYear)
 .get("/cities/:city", getCity)
 .get("/get-years", getYears)
-.post("/travels", addTravel)
 .get("/travels/:username/:year", getTravelsByYear)
 .get("/get-years/:username", getUserYears)
 .get("/get-travels/:username", getAllTravels)
+.post("/travels", addTravel)
 
 .listen(PORT, () => console.info(`Listening on port ${PORT}`));

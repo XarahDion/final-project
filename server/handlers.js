@@ -98,7 +98,7 @@ const addTravel = async (req, res) => {
             venue: info.venue,
             city: info.city,
             country: info.country,
-            coordinates: await getPositionFromAddress(info.city).then((result) => result)
+            coordinates: await getPositionFromAddress(info.city, info.country).then((result) => result)
         });
         await db.collection(`${info.username}`).createIndex( { date: "text" } ) 
         res.status(201).json({ status: 201, data: result})

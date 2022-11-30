@@ -58,22 +58,20 @@ const Header = () =>{
             <Container>
                 {useLocation().pathname === "/" ?
                 <label>
-                    {user? `${user.name} Travels :` : "Xarah Dion Concerts :"}
+                    {user? `${user.name}'s Travels :` : "Xarah Dion's Concerts :"}
                     <Select onChange={handleYears}>
                     <option value="">Select a year...</option>
-                    {!years
-                    ? <h1>Loading...</h1>
+                    {
+                    !years ? <h1>Loading...</h1>
                     : years.map ((year) => {
                         return  (
-                            <>
                             <option value={year}>{year}</option>
-                            </>
                         )
                     })
                     }
                     </Select>
                 </label>
-                :<></>}
+                : <></>}
             </Container>
             <Div>
                 {isAuthenticated ? 
@@ -99,24 +97,20 @@ const Header = () =>{
 const Profile = styled(Link)`
     cursor: pointer;
 `
-
 const Logo = styled.img`
     width: 40px;
     height: 40px;
-`;
-
+`
 const Img = styled.img`
     border-radius: 50%;
     height: 20px;
     margin-left: 5px;
 `
-
 const Div = styled.div`
     display:flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 `
-
 const Greet = styled.button`
     height: 28px;
     display: flex;
@@ -132,7 +126,6 @@ const Greet = styled.button`
         transition: 0.25s;
     }
 `
-
 const Select = styled.select`
     padding: 1px;
     margin-left: 5px;
@@ -145,11 +138,10 @@ const Container = styled.div`
 const Span = styled.p`
     margin-left: 6px;
 `
-
 const Wrapper = styled.div`
     font-size: 12px;
     font-weight: 600;
-    padding: 4px 10px;
+    padding: 4px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;

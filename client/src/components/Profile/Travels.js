@@ -4,9 +4,9 @@ import { useEffect, useState} from "react";
 import logo from "../../assets/loadingIcon.gif";
 import { useNavigate } from "react-router-dom";
 
-const Travels = () => {
+const Travels = ({travelState}) => {
     const [error, setError] = useState(false);
-    const { user, isAuthenticated } = useAuth0();
+    const { user } = useAuth0();
     const [travels, setTravels] = useState();
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const Travels = () => {
         e.preventDefault();
         navigate(`/cities/${travel.city}/${travel.country}`)
     }
-    
+
     useEffect ( () => {
         if (user) {
         fetch(`/get-travels/${user.name}`)
@@ -31,13 +31,13 @@ const Travels = () => {
             setError(true);
         })
         }
-    }, [ user])
+    }, [ user, travelState])
 
     return (
         <Main>
             {travels?
                 <Container>
-                <Name>{user.name} Travel Collection</Name>
+                <Name>{user.name}'s Travel Collection</Name>
                 {Object.values(travels).map((travel) => {
                     return (
                         <TravelDiv onClick={(e) => handleClick(e, travel)} key={travel._id}>
@@ -45,6 +45,7 @@ const Travels = () => {
                             <Div>{travel.venue}</Div>
                             <Div>{travel.city}</Div>
                             <Div>{travel.country}</Div>
+                            <BtnRmv onClick={(e) => handleRemove(e, travel)}> x </BtnRmv>
                         </TravelDiv>
                     )
                 })
@@ -55,10 +56,13 @@ const Travels = () => {
     )
 }
 
+const BtnRmv = styled.div`
+    width: 10px;
+    height: 10px;
+`
 const Div= styled.div`
     display: flex;
     justify-content: flex-start;
-    /* border: 1px solid red; */
     width: 150px;
 `
 const Name = styled.div`
@@ -66,15 +70,12 @@ const Name = styled.div`
     font-size: 12px;
     margin-bottom: 20px;
 `
-
 const Logo = styled.img`
     width: 40px;
     height: 40px;
-`;
-
+`
 const Main = styled.div`
     display: flex;
-    width: 100vw;
     justify-content: center;
     align-items: center;
     font-family: var(--font-body);

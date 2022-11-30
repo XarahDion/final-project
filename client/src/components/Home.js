@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { UserContext } from './hooks/UserContext';
+import styled from "styled-components";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
 const Home = () =>{
@@ -102,13 +103,16 @@ const Home = () =>{
     }, [travels])
 
     return (
-        <>
+        <Div>
         <div className="sidebar">
             Longitude: {coords[0]} | Latitude: {coords[1]} | Zoom: {zoom}
         </div>
         <div ref={mapContainer} className="map-container" />
-        </>
+        </Div>
     )
 }
 
+const Div = styled.div`
+    position: fixed;
+`
 export default Home;

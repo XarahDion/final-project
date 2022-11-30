@@ -37,14 +37,13 @@ const City = () => {
                 data = await res.json()
             }
             setSelectedCity(data.data)
-
             } catch (err) {
                 console.log(err)
             }
         }
         handleCities()
     }, [])
-
+    console.log(selectedCity)
     return (
         <Div>
         {selectedCity ?
@@ -101,7 +100,7 @@ const Logo = styled.img`
 `;
 
 const Div = styled.div`
-
+    position: fixed;
 `
 const Title = styled.div`
     font-family: var(--font-body);
