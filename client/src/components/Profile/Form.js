@@ -18,9 +18,9 @@ const Form = ({ handleSubmit }) => {
         /// onSubmit, sends the formData to Profile component with handleSubmit function
         <StyledForm onSubmit={(e) => handleSubmit(e, formData)}>
             <InstDiv>
-                <DivDet>Enter travel details</DivDet> <DivDet>All fields are mandatory</DivDet>
+                <DetDiv>Enter travel details</DetDiv> <DetDiv>All fields are mandatory</DetDiv>
             </InstDiv>
-            <Div>
+            <InDiv>
                 {/* defines the attributes and functions of the input fields */}
                 <Input 
                     type="text" 
@@ -36,8 +36,8 @@ const Form = ({ handleSubmit }) => {
                     required={true}
                     handleChange={handleChange} 
                 />
-            </Div>
-            <Div>
+            </InDiv>
+            <InDiv>
                 <Input 
                     type="text" 
                     placeholder="City (no blank spaces)"
@@ -52,17 +52,17 @@ const Form = ({ handleSubmit }) => {
                     required={true}
                     handleChange={handleChange} 
                 />
-            </Div>
+            </InDiv>
             {/* the Submit button fires the handleSubmit function */}
-            <Submit type="submit" >Add Travel</Submit>
+            <Button type="submit" >Add Travel</Button>
         </StyledForm>
     )
 };
 
-const DivDet = styled.div`
+const DetDiv = styled.div`
     justify-content: space-between;
 `
-const Div = styled.div `
+const InDiv = styled.div `
     display: flex;
     justify-content: space-between;
     padding: 0px 60px;
@@ -73,7 +73,7 @@ const InstDiv = styled.div `
     justify-content: space-between;
     padding: 0px 80px;
 `
-const Submit = styled.button`
+const Button = styled.button`
     width: 200px;
     margin-top: 15px;
     border-radius: 5px;

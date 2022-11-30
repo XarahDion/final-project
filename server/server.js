@@ -10,7 +10,9 @@ const {
     addTravel,
     getTravelsByYear,
     getUserYears,
-    getAllTravels
+    getAllTravels,
+    deleteTravel,
+    updateTravel
 } = require("./handlers")
 
 express()
@@ -38,5 +40,7 @@ express()
 .get("/get-years/:username", getUserYears)
 .get("/get-travels/:username", getAllTravels)
 .post("/travels", addTravel)
+.delete("/delete-travel/:username/:_id", deleteTravel)
+.patch("/update-travel/:username/:_id", updateTravel)
 
 .listen(PORT, () => console.info(`Listening on port ${PORT}`));

@@ -1,12 +1,28 @@
-import {useAuth0} from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import Form from "./Form";
 import Travels from "./Travels";
-import { useEffect, useState} from "react";
+import { useState } from "react";
 
 const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
     const [travelState, setTravelState] = useState()
+
+    const handleRemove = (e, travel) => {
+        e.preventDefault();
+        fetch(`/delete-travel/${user.name}/${travel._id}`, {
+            method: "DELETE"
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.status >= 300) {
+                console.log(data.message)
+            } else {
+                setTravelState(data.data.deletedCount)
+                console.log(data.data)
+            }
+        })
+    }
 
     const handleSubmit = (e, formData) => {
         e.preventDefault();
@@ -50,7 +66,8 @@ const Profile = () => {
                 {/* the Form component is passed the handleSubmit function */}
                 <Form handleSubmit={handleSubmit} />
             </Div>
-            <Travels travelState={travelState} />
+            <Travels travelState={travelState}
+                    handleRemove={handleRemove} />
             </Main> 
         )
     )
@@ -62,10 +79,6 @@ const Main =styled.div`
 const Img = styled.img`
     border-radius: 5px;
     height: 150px;
-`
-const Logo = styled.img`
-    width: 50px;
-    height: 50px;
 `
 const Name = styled.div`
     font-weight: 600;

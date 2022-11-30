@@ -84,7 +84,7 @@ const getYears = async (req, res) => {
     }
 };
 
-/// creates a travel log to travels collection
+// creates a travel documents to user collection
 // also creates index for date field to be able to $text $search
 const addTravel = async (req, res) => {
     const info = req.body
@@ -132,7 +132,7 @@ const getUserYears = async (req, res) => {
     }
 };
 
-/// for a given user, returns all travels by year from mongodb
+// for a given user, returns all travels by year from mongodb
 const getTravelsByYear = async (req, res) => {
     const info = req.params
     const client = new MongoClient(MONGO_URI, options);
@@ -149,8 +149,9 @@ const getTravelsByYear = async (req, res) => {
     }
 };
 
+// for a given user, returns all travels from mongodb
 const getAllTravels = async (req, res) => {
-    const {username} = req.params
+    const { username } = req.params
     const client = new MongoClient(MONGO_URI, options);
 
     try {
@@ -165,6 +166,62 @@ const getAllTravels = async (req, res) => {
     }
 };
 
+/// deletes one travel in user collection by its _id
+const deleteTravel = async (req, res) => {
+    const info = req.params ;
+    const _id = info._id
+    const client = new MongoClient(MONGO_URI, options);
+
+    try { 
+        await client.connect();
+        const db = client.db("final-project");
+        const result = await db.collection(`${info.username}`).deleteOne({ _id : _id });
+
+        if (!result.deletedCount) {
+            return res.status(400).json({ status: 404, data: _id, message: "Cannot delete this item."})
+        }
+        if (result.deletedCount) {
+            return res.status(201).json({ status: 204, _id, data: result})
+        }
+    } catch (err) {
+        console.log(err.stack)
+    } finally {
+        client.close();
+    }
+};
+
+// updates a specified reservation
+const updateTravel = async (req, res) => {
+    const info = req.params ;
+    const _id = info._id
+    const username = info.username
+    const { date, venue, city, country } = req.body
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        await client.connect();
+        const db = client.db("final-project");
+        const newValues = { $set: {
+                            date: date,
+                            venue: venue,
+                            city: city,
+                            country: country,
+                            coordinates: await getPositionFromAddress(city, country).then((result) => result)
+                            } };
+        const result = await db.collection(username).updateOne( { _id: _id }, newValues);
+
+        if (req.body === undefined) {
+            return res.status(400).json({ status: 404, message: "You cannot update with these keys." });
+        } else {
+            res.status(201).json({ status: 201, data: result })
+        }
+    } catch (err) {
+        console.log(err.stack)
+    } finally {
+        client.close();
+    }
+};
+
 module.exports = { 
     getConcertsByYear,
     getCity,
@@ -172,5 +229,7 @@ module.exports = {
     addTravel,
     getUserYears,
     getTravelsByYear,
-    getAllTravels
+    getAllTravels,
+    deleteTravel,
+    updateTravel
 }
