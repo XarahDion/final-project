@@ -1,5 +1,5 @@
 import {useAuth0} from "@auth0/auth0-react";
-import { FiUser } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import styled from "styled-components";
 
 const LogoutButton = () => {
@@ -9,7 +9,7 @@ const LogoutButton = () => {
         isAuthenticated && (
             <Logout onClick={() => logout()}>
                 <Span>Sign Out </Span>
-                <FiUser/>
+                <FiLogOut/>
             </Logout>
         )
     )
@@ -17,6 +17,7 @@ const LogoutButton = () => {
 
 const Span = styled.p`
     margin-right: 6px;
+    font-weight: 600;
 `
 
 const Logout= styled.button`

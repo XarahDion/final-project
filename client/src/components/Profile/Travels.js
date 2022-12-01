@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-const Travels = ({ travelState, handleRemove, setFormData, formData }) => {
+const Travels = ({ travelState, handleRemove, setFormData, formData, setErr }) => {
     const [error, setError] = useState(false);
     const { user } = useAuth0();
     const [travels, setTravels] = useState();
@@ -23,7 +23,7 @@ const Travels = ({ travelState, handleRemove, setFormData, formData }) => {
             }
             else {
                 setFormData(data.data);
-                console.log(data.data)
+                setErr(false)
             }
         })
         .catch((error) => {
@@ -53,7 +53,7 @@ const Travels = ({ travelState, handleRemove, setFormData, formData }) => {
             setError(true);
         })
         }
-    }, [ user, travelState, formData])
+    }, [ user, travelState])
 
     return (
         <Main>
@@ -62,7 +62,7 @@ const Travels = ({ travelState, handleRemove, setFormData, formData }) => {
                 <Name>Travel Collection</Name>
                 {Object.values(travels).map((travel) => {
                     return (
-                        <Tippy content={<Span>Go to {travel.city}, {travel.country} page</Span>}>
+                        <Tippy content={<Span>Go to {travel.city}, {travel.country}</Span>}>
                         <TravelDiv key={travel._id} onClick={(e) => handleClick(e, travel)}>
                             <Div>{travel.date}</Div>
                             <Div>{travel.venue}</Div>
@@ -122,7 +122,7 @@ const CityDiv= styled.div`
 `
 const Name = styled.div`
     font-weight: 600;
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 10px;
 `
 const Logo = styled.img`
@@ -134,9 +134,8 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     font-family: var(--font-body);
-    margin: 34px 0px;
+    margin: 24px 0px;
 `
-
 const Container = styled.div`
     width: 700px;
     display: flex;

@@ -3,9 +3,8 @@ import styled from "styled-components"
 import Input from "./Input"
 
 /// renders the form component
-const Form = ({ handleSubmit, handleUpdate, formData, setFormData }) => {
+const Form = ({ handleSubmit, handleUpdate, formData, setFormData, err }) => {
     const [state, setState]= useState("")
-/// registers what is inputted in the input fields 
 
     useEffect (() => {
         if (formData) {
@@ -13,6 +12,7 @@ const Form = ({ handleSubmit, handleUpdate, formData, setFormData }) => {
         }
     }, [formData])
 
+    /// registers what is inputted in the input fields 
     const handleChange = (key, value) => {
         setFormData({
             ...formData,
@@ -66,12 +66,23 @@ const Form = ({ handleSubmit, handleUpdate, formData, setFormData }) => {
             {/* the Submit button fires the handleSubmit function */}
             <BtnDiv>
                 <Button type="submit" > Add Travel </Button>
-                <Button type="button" onClick={(e) => handleUpdate(e, formData)} > Update Travel </Button>
+                <Button type="submit"
+                    onClick={(e) => handleUpdate(e, formData)}
+                    disabled={!formData ? true : false}> Modify Travel </Button>
             </BtnDiv>
+            {err ? <Err>To modify a travel, please select a travel from the list below.</Err> : <Err></Err>}
         </StyledForm>
     )
 };
 
+const Err = styled.div`
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    height: 10px;
+    font-size: 10px;
+    margin-bottom: 6px;
+`
 const BtnDiv = styled.div`
     display: flex;
     justify-content: center;
@@ -106,8 +117,8 @@ const Button = styled.button`
 `
 const StyledForm = styled.form`
     max-width: 700px;
-    margin: 0px 0px 0px 34px;
-    padding: 29px 0px;
+    margin: 0px 0px 0px 24px;
+    padding: 22px 0px 5px 0px;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;

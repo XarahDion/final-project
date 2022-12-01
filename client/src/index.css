@@ -12,18 +12,29 @@
     position: absolute;
     top: 85vh;
     left: 0;
-    margin: 12px;
+    margin: 12px 24px;
     border-radius: 4px;
 }
 
-.popup {
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+.mapboxgl-popup-content {
+    background-color: white;
+    padding: 5px;
+    font-size: 12px;
 }
+
+.popup {
+    background-color: white;
+    color: black;
+    font-family: var(--font-body);
+    font-weight: 800;
+    padding: 5px;
+    border-radius: 2px;
+}
+
 .popup:hover{
     cursor: default;
 }
+
 .marker {
     background-image: url(./assets/marker.png);
     background-size: cover;

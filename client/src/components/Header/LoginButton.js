@@ -1,5 +1,5 @@
 import {useAuth0} from "@auth0/auth0-react";
-import { FiUser } from "react-icons/fi";
+import { FiLogIn } from "react-icons/fi";
 import styled from "styled-components";
 
 const LoginButton = () => {
@@ -9,7 +9,7 @@ const LoginButton = () => {
         !isAuthenticated && (
             <Login onClick={() => loginWithRedirect()}>
                 <Span>Sign In </Span>
-                <FiUser/>
+                <FiLogIn/>
             </Login>
         )
     )
@@ -17,6 +17,7 @@ const LoginButton = () => {
 
 const Span = styled.p`
     margin-right: 6px;
+    font-weight: 600;
 `
 
 const Login= styled.button`

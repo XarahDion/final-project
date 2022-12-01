@@ -53,7 +53,11 @@ const Header = () =>{
                 <Greet onClick={() => {window.location.href = '/';}}>
                     <FiGlobe /> 
                     <Span>Earth Trotter</Span>
+                    <FiGlobe /> 
                 </Greet>
+                {/* <Greet>
+                    <Span>About</Span>
+                </Greet> */}
             </Div>
             <Container>
                 {useLocation().pathname === "/" ?
@@ -78,7 +82,7 @@ const Header = () =>{
                 <>
                 <Profile to="/profile">
                     <Greet>
-                        {user.name}
+                        {user.name}'s Profile
                         {user?.picture && 
                         <Img async="on" src={user.picture} alt={user?.name} />
                         }
@@ -107,16 +111,16 @@ const Img = styled.img`
     margin-left: 5px;
 `
 const Div = styled.div`
-    display:flex;
+    display: flex;
     align-items: center;
     gap: 10px;
 `
 const Greet = styled.button`
+    font-weight: 600;
     height: 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 8px;
     border-radius: 5px;
     font-size: 12px;
     color: white;
@@ -127,16 +131,18 @@ const Greet = styled.button`
     }
 `
 const Select = styled.select`
-    padding: 1px;
     margin-left: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
 `
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    font-weight: 200;
 `
 const Span = styled.p`
-    margin-left: 6px;
+    margin: 0px 6px;
+    color: white;
+    font-size: 13px;
 `
 const Wrapper = styled.div`
     font-size: 12px;

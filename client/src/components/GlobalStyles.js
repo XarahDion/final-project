@@ -34,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
             cursor: not-allowed;
         }
     }
-
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
@@ -45,13 +44,6 @@ const GlobalStyle = createGlobalStyle`
     }
     ol, ul {
         list-style: none;
-    }
-    button {
-        border: none;
-        padding: 16px;
-        height: 40px;
-        font-size: 16px;
-        font-weight: 600;
     }
     blockquote, q {
         quotes: none;
@@ -67,11 +59,12 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
         padding: 0px 4px;
+        border: none;
     }
     label {
         font-family: var(--font-body);
-        font-weight: 600;
         color: white;
+        font-weight: 600;
     }
     option {
         font-size: 12px;

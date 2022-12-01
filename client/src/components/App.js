@@ -6,6 +6,7 @@ import Header from "./Header";
 import City from "./City"
 import Profile from "./Profile";
 import { useState, useEffect } from "react";
+import ErrorPage from "./ErrorPage";
 
 const App = () => {
   
@@ -18,6 +19,7 @@ const App = () => {
           <Route path={"/"} element={<Home />} />
           <Route path={"/cities/:city/:country"} element={<City />} />
           <Route path={"/profile"} element={<Profile/>} />
+          <Route path={"/error"} element={<ErrorPage/>} />
         </Routes>
       </Main>
     </BrowserRouter>

@@ -8,6 +8,7 @@ const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
     const [travelState, setTravelState] = useState();
     const [formData, setFormData] = useState();
+    const [err, setErr] = useState(false);
 
     const handleUpdate = (e, formData) => {
         e.preventDefault();
@@ -28,10 +29,12 @@ const Profile = () => {
         .then((data) => {
             if (data.status >= 300) {
                 console.log(data.message)
+            } else if (data.data.modifiedCount === 0) {
+                setErr(true)
             } else {
-                setTravelState(data.data.modifiedCount)
+                setTravelState(data.data)
                 setFormData("")
-                console.log(data.data)
+                // console.log(data.data)
             }
         })
     }
@@ -47,7 +50,7 @@ const Profile = () => {
             if (data.status >= 300) {
                 console.log(data.message)
             } else {
-                setTravelState(data.data.deletedCount)
+                setTravelState(travel.city)
                 console.log(data.data)
             }
         })
@@ -97,13 +100,15 @@ const Profile = () => {
                     <Form handleSubmit={handleSubmit}
                         formData={formData}
                         setFormData={setFormData}
-                        handleUpdate={handleUpdate} />
+                        handleUpdate={handleUpdate}
+                        err={err} />
                 </Div>
                 <Travels travelState={travelState}
                         handleRemove={handleRemove}
                         handleUpdate={handleUpdate}
                         setFormData={setFormData}
-                        formData={formData} />
+                        formData={formData}
+                        setErr={setErr} />
             </Main> 
         )
     )
@@ -111,6 +116,7 @@ const Profile = () => {
 
 const Main =styled.div`
     overflow-x: hidden;
+    
 `
 const Img = styled.img`
     border-radius: 5px;
@@ -128,7 +134,7 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
     font-family: var(--font-body);
-    margin-top: 24px;
+    margin-top: 26px;
 `
 const ImgDiv = styled.div`
     display: flex;
