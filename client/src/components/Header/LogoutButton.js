@@ -22,6 +22,7 @@ const Span = styled.p`
 
 const Logout= styled.button`
     height: 28px;
+    width: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;

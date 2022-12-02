@@ -8,7 +8,7 @@ const Home = () =>{
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [coords, setCoords] = useState([-73.5674, 45.5019]);
-    const [zoom, setZoom] = useState(7);
+    const [zoom, setZoom] = useState(9);
     const [pitch, setPitch] = useState(25);
     const { concerts, travels, selectedYear } = useContext(UserContext);
 
@@ -36,6 +36,17 @@ const Home = () =>{
         })
         .setLngLat(coords)
         .addTo(map.current)
+        map.current.addControl(
+            new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
+            },
+            // When active the map will receive updates to the device's location as it changes.
+            trackUserLocation: true,
+            // Draw an arrow next to the location dot to indicate which direction the device is heading.
+            showUserHeading: true
+            })
+            );
         // .setPopup(new mapboxgl.Popup({
         //     closeButton: false,
         //     offset: 26
@@ -68,7 +79,7 @@ const Home = () =>{
                 offset: 26
             })
             .setHTML(`<form action=/cities/${travel.city}/${travel.country} >
-                        <button class="popup" type="submit">${travel.city}</button>
+                        <button class="popup" type="submit">Go to ${travel.city}</button>
                     </form>`)
             )
         })
@@ -97,7 +108,7 @@ const Home = () =>{
                 offset: 26
             })
             .setHTML(`<form action=/cities/${travel.city}/${travel.country} >
-                        <button class="popup" type="submit">${travel.city}</button>
+                        <button class="popup" type="submit">Go to ${travel.city}</button>
                     </form>`)
             )
         })

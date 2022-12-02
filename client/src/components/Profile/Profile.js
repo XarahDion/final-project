@@ -8,7 +8,9 @@ const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
     const [travelState, setTravelState] = useState();
     const [formData, setFormData] = useState();
-    const [err, setErr] = useState(false);
+    const [updateErr, setUpdateErr] = useState(false);
+    const [updateId, setUpdateId] = useState();
+    const [postErr, setPostErr] = useState();
 
     const handleUpdate = (e, formData) => {
         e.preventDefault();
@@ -30,11 +32,11 @@ const Profile = () => {
             if (data.status >= 300) {
                 console.log(data.message)
             } else if (data.data.modifiedCount === 0) {
-                setErr(true)
+                setUpdateErr(true)
             } else {
                 setTravelState(data.data)
                 setFormData("")
-                // console.log(data.data)
+                setUpdateId("")
             }
         })
     }
@@ -50,8 +52,7 @@ const Profile = () => {
             if (data.status >= 300) {
                 console.log(data.message)
             } else {
-                setTravelState(travel.city)
-                console.log(data.data)
+                setTravelState(travel._id)
             }
         })
     }
@@ -74,13 +75,13 @@ const Profile = () => {
         })
         .then(res => res.json())
         .then((data) => {
-            if(data.status >= 300) {
-                console.log(data.message);
+            if (data.status >= 300) {
+                setPostErr(data.message);
             }
             else {
-                console.log(data.data)
-                setTravelState(data.data.insertedId)
-                setFormData("")
+                setTravelState(data.data.insertedId);
+                setFormData("");
+                setPostErr(null);
             }
         })
         .catch((error) => {
@@ -101,14 +102,18 @@ const Profile = () => {
                         formData={formData}
                         setFormData={setFormData}
                         handleUpdate={handleUpdate}
-                        err={err} />
+                        updateErr={updateErr}
+                        updateId={updateId}
+                        postErr={postErr}
+                        setPostErr={setPostErr} />
                 </Div>
                 <Travels travelState={travelState}
                         handleRemove={handleRemove}
                         handleUpdate={handleUpdate}
                         setFormData={setFormData}
                         formData={formData}
-                        setErr={setErr} />
+                        setUpdateErr={setUpdateErr}
+                        setUpdateId={setUpdateId} />
             </Main> 
         )
     )

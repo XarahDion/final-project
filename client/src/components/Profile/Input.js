@@ -9,11 +9,11 @@ const Input = ({type, placeholder, name, required, handleChange, data}) => {
             placeholder={placeholder} 
             required={required} 
             value={data}
-            // send the text to form with handleChange
+            // send the text to parent Form with handleChange
             onChange={(e) => handleChange(name, e.target.value)}
         />
     )
-}
+};
 
 const StyledInput = styled.input`
     font-size: 12px;

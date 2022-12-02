@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-const Travels = ({ travelState, handleRemove, setFormData, formData, setErr }) => {
+const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdateErr }) => {
     const [error, setError] = useState(false);
     const { user } = useAuth0();
     const [travels, setTravels] = useState();
@@ -23,7 +23,8 @@ const Travels = ({ travelState, handleRemove, setFormData, formData, setErr }) =
             }
             else {
                 setFormData(data.data);
-                setErr(false)
+                setUpdateErr(false);
+                setUpdateId(travel._id);
             }
         })
         .catch((error) => {
@@ -60,14 +61,14 @@ const Travels = ({ travelState, handleRemove, setFormData, formData, setErr }) =
             {travels?
                 <Container>
                 <Name>Travel Collection</Name>
+                {travels.length === 0 ? <Err>Please add travel to collection.</Err> : <></>}
                 {Object.values(travels).map((travel) => {
                     return (
                         <Tippy content={<Span>Go to {travel.city}, {travel.country}</Span>}>
                         <TravelDiv key={travel._id} onClick={(e) => handleClick(e, travel)}>
                             <Div>{travel.date}</Div>
                             <Div>{travel.venue}</Div>
-                                <CityDiv > {travel.city} </CityDiv>
-                            <Div>{travel.country}</Div>
+                            <Div >{travel.city}, {travel.country}</Div>
                             <BtnDiv>
                                 <Tippy content={<Span>Modify Travel</Span>}>
                                     <Btn onClick={(e) => handlePopulate(e, travel)}> Modify </Btn>
@@ -86,6 +87,11 @@ const Travels = ({ travelState, handleRemove, setFormData, formData, setErr }) =
     )
 }
 
+const Err = styled.div`
+    color: red ;
+    height: 10px;
+    font-size: 10px;
+`
 const Span = styled.span`
     font-size: 11px;
     font-family: var(--font-body);
@@ -94,10 +100,10 @@ const Span = styled.span`
 const BtnDiv = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 70px;
+    width: 80px;
 `
 const Btn = styled.button`
-    padding: 0px 5px;
+    padding: 0px 6px;
     border-radius: 5px;
     font-size: 11px;
     font-weight: 200;
@@ -107,15 +113,10 @@ const Btn = styled.button`
     &:hover{
         cursor: pointer;
         background-color: white;
+        transition: 0.5s;
     }
 `
 const Div= styled.div`
-    display: flex;
-    justify-content: flex-start;
-    width: 150px;
-`
-
-const CityDiv= styled.div`
     display: flex;
     justify-content: flex-start;
     width: 150px;
@@ -156,6 +157,7 @@ const TravelDiv= styled.div`
     &:hover {
         cursor: pointer;
         background-color: #F0F0F0;
+        transition: 0.5s;
     }
 `
 export default Travels

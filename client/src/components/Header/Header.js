@@ -1,34 +1,14 @@
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { UserContext } from '../hooks/UserContext';
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
 import {useAuth0} from "@auth0/auth0-react";
-import logo from "../../assets/loadingIcon.gif";
 import { FiGlobe } from "react-icons/fi";
+import DropDown from "./DropDown";
 
 const Header = () =>{
     const [years, setYears] = useState([]);
     const { handleYears } = useContext(UserContext)
-    const { user, isAuthenticated } = useAuth0();
-
-    useEffect ( () => {
-        if (!user)
-        fetch('/get-years')
-        .then(results => results.json())
-        .then ( data => {
-            if(data.status === 400 || data.status === 500) {
-                throw new Error(data.message);
-            }
-            else {
-                setYears(data.data);
-            }
-        })
-        .catch((error) => {
-            console.log("error");
-        })
-    }, [])
+    const { user } = useAuth0();
 
     useEffect ( () => {
         if (user)
@@ -47,6 +27,23 @@ const Header = () =>{
         })
     }, [user])
 
+    useEffect ( () => {
+        if (!user)
+        fetch('/get-years')
+        .then(results => results.json())
+        .then ( data => {
+            if(data.status === 400 || data.status === 500) {
+                throw new Error(data.message);
+            }
+            else {
+                setYears(data.data);
+            }
+        })
+        .catch((error) => {
+            console.log("error");
+        })
+    }, [])
+
     return (
         <Wrapper>
             <Div>
@@ -55,89 +52,29 @@ const Header = () =>{
                     <Span>Earth Trotter</Span>
                     <FiGlobe /> 
                 </Greet>
-                {/* <Greet>
-                    <Span>About</Span>
-                </Greet> */}
             </Div>
-            <Container>
-                {useLocation().pathname === "/" ?
-                <label>
-                    {user? `${user.name}'s Travels :` : "Xarah Dion's Concerts :"}
-                    <Select onChange={handleYears}>
-                    <option value="">Select a year...</option>
-                    {
-                    !years ? <h1>Loading...</h1>
-                    : years.map ((year) => {
-                        return  (
-                            <option value={year}>{year}</option>
-                        )
-                    })
-                    }
-                    </Select>
-                </label>
-                : <></>}
-            </Container>
-            <Div>
-                {isAuthenticated ? 
-                <>
-                <Profile to="/profile">
-                    <Greet>
-                        {user.name}'s Profile
-                        {user?.picture && 
-                        <Img async="on" src={user.picture} alt={user?.name} />
-                        }
-                    </Greet>
-                </Profile>
-                <LogoutButton />
-                </>
-                :<></>}
-                {/* // : <Logo src={logo} alt="loading" />} */}
-                <LoginButton />
-            </Div>
+            <DropDown user={user} handleYears={handleYears} years={years} />
         </Wrapper>
     )
 };
 
-const Profile = styled(Link)`
-    cursor: pointer;
-`
-const Logo = styled.img`
-    width: 40px;
-    height: 40px;
-`
-const Img = styled.img`
-    border-radius: 50%;
-    height: 20px;
-    margin-left: 5px;
-`
 const Div = styled.div`
     display: flex;
     align-items: center;
-    gap: 10px;
 `
 const Greet = styled.button`
     font-weight: 600;
     height: 28px;
+    width: 200px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-radius: 5px;
     font-size: 12px;
     color: white;
     background-color: black;
     &:hover{
         cursor: pointer;
-        transition: 0.25s;
     }
-`
-const Select = styled.select`
-    margin-left: 5px;
-    border-radius: 3px;
-`
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    font-weight: 200;
 `
 const Span = styled.p`
     margin: 0px 6px;

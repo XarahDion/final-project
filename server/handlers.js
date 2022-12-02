@@ -89,7 +89,15 @@ const getYears = async (req, res) => {
 const addTravel = async (req, res) => {
     const info = req.body
     const client = new MongoClient(MONGO_URI, options);
+
     try { 
+        const coordinates = await getPositionFromAddress(info.city, info.country).then((result) => {
+            console.log(result)
+            if (result === undefined) {
+                throw new Error;
+            } else {
+                result
+            }});
         await client.connect();
         const db = client.db("final-project");
         const result = await db.collection(`${info.username}`).insertOne({
@@ -98,12 +106,12 @@ const addTravel = async (req, res) => {
             venue: info.venue,
             city: info.city,
             country: info.country,
-            coordinates: await getPositionFromAddress(info.city, info.country).then((result) => result)
+            coordinates: coordinates
         });
-        await db.collection(`${info.username}`).createIndex( { date: "text" } ) 
-        res.status(201).json({ status: 201, data: result})
+        await db.collection(`${info.username}`).createIndex( { date: "text" } );
+        res.status(201).json({ status: 201, data: result});
     } catch (err) {
-        res.status(500).json({ status: 500, data: req.body, message: err.message });
+        res.status(500).json({ status: 500, data: req.body, message: "An error has occured, please try again." });
     } finally {     
     client.close();
     }

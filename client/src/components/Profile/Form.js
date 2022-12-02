@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components"
 import Input from "./Input"
 
 /// renders the form component
-const Form = ({ handleSubmit, handleUpdate, formData, setFormData, err }) => {
-    const [state, setState]= useState("")
-
-    useEffect (() => {
-        if (formData) {
-            setState(formData.date)
-        }
-    }, [formData])
+const Form = ({ handleSubmit, handleUpdate, formData, setFormData, updateErr, updateId, postErr, setPostErr }) => {
 
     /// registers what is inputted in the input fields 
     const handleChange = (key, value) => {
         setFormData({
             ...formData,
             [key]: value
-        })
+        });
+        setPostErr(null);
     }
 
     return (
@@ -64,13 +57,15 @@ const Form = ({ handleSubmit, handleUpdate, formData, setFormData, err }) => {
                 />
             </InDiv>
             {/* the Submit button fires the handleSubmit function */}
+            {postErr ? <Err>{postErr}</Err> : <Err></Err>}
             <BtnDiv>
-                <Button type="submit" > Add Travel </Button>
+                <Button type="submit" 
+                    disabled={updateId ? true : false}> Add Travel </Button>
                 <Button type="submit"
                     onClick={(e) => handleUpdate(e, formData)}
-                    disabled={!formData ? true : false}> Modify Travel </Button>
+                    disabled={!updateId ? true : false}> Modify Travel </Button>
             </BtnDiv>
-            {err ? <Err>To modify a travel, please select a travel from the list below.</Err> : <Err></Err>}
+            {updateErr || !updateId ? <Err>To modify a travel, please select a travel from the list below.</Err> : <Err></Err>}
         </StyledForm>
     )
 };
@@ -104,7 +99,6 @@ const InstDiv = styled.div `
 `
 const Button = styled.button`
     width: 160px;
-    margin-top: 15px;
     border-radius: 5px;
     align-self: center;
     font-size: 11px;
@@ -113,6 +107,10 @@ const Button = styled.button`
     &:hover{
         cursor: pointer;
         background-color: white;
+        transition: 0.5s;
+    }
+    &:disabled&:hover {
+        background-color: none;
     }
 `
 const StyledForm = styled.form`

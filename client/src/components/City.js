@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import logo from "../assets/loadingIcon.gif";
+import { useNavigate } from "react-router-dom";
 
 const City = () => {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -9,6 +10,7 @@ const City = () => {
     const [lon, setLon] = useState();
     const [lat, setLat] = useState();
     const newarr = []
+    const navigate = useNavigate();
 
     if (selectedCity) {
         selectedCity.included.forEach((item) => {
@@ -53,7 +55,7 @@ const City = () => {
             }
             setSelectedCity(data.data)
             } catch (err) {
-                console.log(err)
+                navigate("/error")
             }
         }
         handleCities()
@@ -116,6 +118,7 @@ const KnownFor = styled.div`
 const Logo = styled.img`
     width: 50px;
     height: 50px;
+    margin: 24px;
 `
 const Div = styled.div`
     position: fixed;
