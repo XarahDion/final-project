@@ -48,14 +48,6 @@ const Home = () => {
             showUserHeading: true
             })
             );
-        // .setPopup(new mapboxgl.Popup({
-        //     closeButton: false,
-        //     offset: 26
-        // })
-        // .setHTML(`<form action=/cities/Montreal/Canada >
-        //             <button class="popup" type="submit">Montreal</button>
-        //         </form>`)
-        // )
     }, [selectedYear, userCoords]);
 
     useEffect(() => {
@@ -90,7 +82,7 @@ const Home = () => {
 
     useEffect(() => {
         if (travels) {
-            setCoords(travels[0].coordinates)
+            setCoords([(travels[0].coordinates[0].toFixed(4)), (travels[0].coordinates[1].toFixed(4))])
             map.current.flyTo({
                 center: travels[0].coordinates,
                 duration: 12000, // Animate over 12 seconds

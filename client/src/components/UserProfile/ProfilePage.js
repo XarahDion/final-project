@@ -34,7 +34,11 @@ const Profile = () => {
             } else if (data.data.modifiedCount === 0) {
                 setUpdateErr(true)
             } else {
-                setTravelState(formData._id)
+                if (travelState === formData._id) {
+                    setTravelState(formData.city)
+                } else {
+                    setTravelState(formData._id)
+                }
                 setFormData("")
                 setUpdateId("")
             }
