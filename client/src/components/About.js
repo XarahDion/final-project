@@ -3,8 +3,8 @@ import styled from "styled-components";
 const About = () => {
     return (
     <Wrapper>
-        <Span>An unknown error has occurred.</Span>
-        <Refresh>Please try refreshing the page, or contact support if the problem persists.</Refresh>
+        <Span>About page.</Span>
+        <Refresh>Information about page.</Refresh>
     </Wrapper>
         )
 };

@@ -64,8 +64,8 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
                 {travels.length === 0 ? <Err>Please add travel to collection.</Err> : <></>}
                 {Object.values(travels).map((travel) => {
                     return (
-                        <Tippy content={<Span>Go to {travel.city}, {travel.country}</Span>}>
-                        <TravelDiv key={travel._id} onClick={(e) => handleClick(e, travel)}>
+                        <Tippy  key={travel._id} content={<Span>Go to {travel.city}, {travel.country}</Span>}>
+                        <TravelDiv onClick={(e) => handleClick(e, travel)}>
                             <Div>{travel.date}</Div>
                             <Div>{travel.venue}</Div>
                             <Div >{travel.city}, {travel.country}</Div>

@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const PORT = 8000;
 
 const {
+    getConcerts,
     getConcertsByYear,
     getCity,
     getYears,
@@ -11,10 +12,9 @@ const {
     getUserYears,
     getAllTravels,
     getTravelById,
+    addTravel,
     deleteTravel,
     updateTravel,
-    addTravel,
-    getConcerts
 } = require("./handlers")
 
 express()
@@ -35,8 +35,8 @@ express()
 .use(express.urlencoded({ extended: false }))
 .use("/", express.static(__dirname + "/"))
 
-.get("/concerts/:year", getConcertsByYear)
 .get("/concerts", getConcerts)
+.get("/concerts/:year", getConcertsByYear)
 .get("/cities/:city", getCity)
 .get("/get-years", getYears)
 .get("/travels/:username/:year", getTravelsByYear)

@@ -31,7 +31,7 @@ const Concerts = () => {
         .catch((error) => {
             setError(true);
         })
-    }, [ concerts])
+    }, [])
 
     return (
         <Main>
@@ -40,8 +40,8 @@ const Concerts = () => {
                 <Name>Concert Collection</Name>
                 {Object.values(concerts).map((concert) => {
                     return (
-                        <Tippy content={<Span>Go to {concert.city}, {concert.country}</Span>}>
-                        <TravelDiv key={concert._id} onClick={(e) => handleClick(e, concert)}>
+                        <Tippy key={concert._id} content={<Span>Go to {concert.city}, {concert.country}</Span>}>
+                        <TravelDiv onClick={(e) => handleClick(e, concert)}>
                             <Div>{concert.date}</Div>
                             <Div>{concert.venue}</Div>
                             <Div >{concert.city}, {concert.country}</Div>

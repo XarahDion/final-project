@@ -14,7 +14,7 @@ const Home = () =>{
 
     useEffect (() =>{
         navigator.geolocation.getCurrentPosition((position) => {
-            setCoords([position.coords.longitude, position.coords.latitude])
+            setCoords([position.coords.longitude.toFixed(4), position.coords.latitude.toFixed(4)])
         })
     },[])
 
@@ -31,7 +31,7 @@ const Home = () =>{
         });
         map.current.addControl(nav, 'top-right');
         new mapboxgl.Marker({
-            color: "red",
+            color: "black",
             scale: 0.75
         })
         .setLngLat(coords)

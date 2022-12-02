@@ -12,6 +12,22 @@ const options = {
     useUnifiedTopology: true,
 };
 
+/// returns all concerts
+const getConcerts = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        await client.connect();
+        const db = client.db("final-project");
+        let result = await db.collection("concerts").find().toArray()
+        res.status(200).json({ status: 200, data: result })
+    } catch (err) {
+        res.status(404).json({ status: 404, data: "Not Found" });
+    } finally {
+    client.close();
+    }
+};
+
 /// returns all concerts by year from mongodb
 const getConcertsByYear = async (req, res) => {
     const year = req.params.year
@@ -91,13 +107,16 @@ const addTravel = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
 
     try { 
-        const coordinates = await getPositionFromAddress(info.city, info.country).then((result) => {
+        const coords = []
+        await getPositionFromAddress(info.city, info.country).then((result) => {
             console.log(result)
             if (result === undefined) {
                 throw new Error;
             } else {
-                result
-            }});
+                coords.push(result[0], result[1])
+            }
+        });
+            console.log("1", coords)
         await client.connect();
         const db = client.db("final-project");
         const result = await db.collection(`${info.username}`).insertOne({
@@ -106,8 +125,9 @@ const addTravel = async (req, res) => {
             venue: info.venue,
             city: info.city,
             country: info.country,
-            coordinates: coordinates
+            coordinates: coords
         });
+
         await db.collection(`${info.username}`).createIndex( { date: "text" } );
         res.status(201).json({ status: 201, data: result});
     } catch (err) {
@@ -198,7 +218,7 @@ const deleteTravel = async (req, res) => {
     }
 };
 
-// updates a specified reservation
+// updates a single travel in user collection
 const updateTravel = async (req, res) => {
     const info = req.params ;
     const _id = info._id
@@ -254,33 +274,16 @@ const getTravelById= async (req, res) => {
     }
 };
 
-/// returns all concerts
-const getConcerts = async (req, res) => {
-    const year = req.params.year
-    const client = new MongoClient(MONGO_URI, options);
-
-    try {
-        await client.connect();
-        const db = client.db("final-project");
-        let result = await db.collection("concerts").find().toArray()
-        res.status(200).json({ status: 200, data: result })
-    } catch (err) {
-        res.status(404).json({ status: 404, data: "Not Found" });
-    } finally {
-    client.close();
-    }
-};
-
 module.exports = { 
+    getConcerts,
     getConcertsByYear,
     getCity,
     getYears,
-    addTravel,
     getUserYears,
     getTravelsByYear,
     getAllTravels,
     getTravelById,
+    addTravel,
     deleteTravel,
     updateTravel,
-    getConcerts
 }

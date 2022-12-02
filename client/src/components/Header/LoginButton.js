@@ -16,7 +16,6 @@ const LoginButton = () => {
 };
 
 const Span = styled.p`
-    margin-right: 6px;
     font-weight: 600;
 `
 

@@ -3,12 +3,12 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../hooks/UserContext';
 import {useAuth0} from "@auth0/auth0-react";
 import { FiGlobe } from "react-icons/fi";
-import DropDown from "./DropDown";
+import UserMenu from "./UserMenu";
 
 const Header = () =>{
     const [years, setYears] = useState([]);
     const { handleYears } = useContext(UserContext)
-    const { user } = useAuth0();
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     useEffect ( () => {
         if (user)
@@ -56,7 +56,11 @@ const Header = () =>{
                     <Span>About</Span>
                 </Greet>
             </Div>
-            <DropDown user={user} handleYears={handleYears} years={years} />
+            <UserMenu user={user}
+                isAuthenticated={isAuthenticated}
+                isLoading={isLoading}
+                handleYears={handleYears}
+                years={years} />
         </Wrapper>
     )
 };
@@ -71,7 +75,6 @@ const Greet = styled.button`
     width: 120px;
     display: flex;
     align-items: center;
-    border-radius: 5px;
     font-size: 12px;
     color: white;
     background-color: black;
@@ -87,7 +90,7 @@ const Span = styled.p`
 const Wrapper = styled.div`
     font-size: 12px;
     font-weight: 600;
-    padding: 4px 20px;
+    padding: 4px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;

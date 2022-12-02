@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import logo from "../assets/loadingIcon.gif";
 import { useNavigate } from "react-router-dom";
+import { FiActivity } from "react-icons/fi";
 
 const City = () => {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -26,8 +27,8 @@ const City = () => {
                 setLon(selectedCity.data[0].attributes.longitude)
                 setLat(selectedCity.data[0].attributes.latitude)
             } else {
-                setLon((selectedCity.data[0].attributes.bounding_box.sw_lon + selectedCity.data[0].attributes.bounding_box.ne_lon)/2)
-                setLat((selectedCity.data[0].attributes.bounding_box.sw_lat + selectedCity.data[0].attributes.bounding_box.ne_lat)/2)
+                setLon(((selectedCity.data[0].attributes.bounding_box.sw_lon + selectedCity.data[0].attributes.bounding_box.ne_lon)/2).toFixed(4))
+                setLat(((selectedCity.data[0].attributes.bounding_box.sw_lat + selectedCity.data[0].attributes.bounding_box.ne_lat)/2).toFixed())
             }
         }
     }, [selectedCity])
@@ -69,17 +70,16 @@ const City = () => {
             <Title>{city}, {country}</Title>
             {newarr.length !== 0 ?
             <Container>
-            <KnownDiv>
-                <Span>Known for :</Span>
+                <FiDiv>
+                    <FiActivity /><Span>Known For</Span><FiActivity />
+                </FiDiv>
                 <KnownFor>
                 {newarr.map((item) => {
                     return (
-                        <Span>• {item}</Span>
+                        <Span>{item}</Span>
                     )
                 })}
                 </KnownFor>
-            </KnownDiv>
-            
             </Container>
             : <></>}
             <div className="sidebar">
@@ -91,29 +91,34 @@ const City = () => {
     )
 }
 
-const KnownDiv = styled.div`
-    margin: 4px 10px;
+const FiDiv = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 const Span = styled.span`
     line-height: 20px;
+    padding: 0px 8px;
 `
 const Container = styled.div`
     background-color: rgba(35, 55, 75, 0.9);
     color: #fff;
-    padding: 6px 12px;
+    padding: 12px 12px;
     font-family: monospace;
     z-index: 1;
     position: absolute;
-    top: 25vh;
+    top: 76px;
     left: 0;
     margin-left: 24px;
     border-radius: 4px;
     width: 200px;
+    text-align: center;
 `
 const KnownFor = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 40px;
+    align-items: center;
+    margin-top: 8px;
 `
 const Logo = styled.img`
     width: 50px;
@@ -130,9 +135,9 @@ const Title = styled.div`
     font-family: monospace;
     z-index: 1;
     position: absolute;
-    top: 4vh;
+    top: 24px;
     left: 0;
-    margin: 12px 24px;
+    margin: 0px 24px;
     border-radius: 4px;
     text-align: center;
     width: 200px;
