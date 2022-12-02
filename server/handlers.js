@@ -254,6 +254,23 @@ const getTravelById= async (req, res) => {
     }
 };
 
+/// returns all concerts
+const getConcerts = async (req, res) => {
+    const year = req.params.year
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        await client.connect();
+        const db = client.db("final-project");
+        let result = await db.collection("concerts").find().toArray()
+        res.status(200).json({ status: 200, data: result })
+    } catch (err) {
+        res.status(404).json({ status: 404, data: "Not Found" });
+    } finally {
+    client.close();
+    }
+};
+
 module.exports = { 
     getConcertsByYear,
     getCity,
@@ -264,5 +281,6 @@ module.exports = {
     getAllTravels,
     getTravelById,
     deleteTravel,
-    updateTravel
+    updateTravel,
+    getConcerts
 }

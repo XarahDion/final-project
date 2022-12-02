@@ -39,7 +39,7 @@ const DropDown = ({user, years, handleYears}) => {
         </>
         :
         <>
-        <Profile to="/profile">
+        <Profile to="/concerts">
             <Greet>
                 Xarah Dion's Profile
                 <Img async="on" src={avatar} alt="Xarah" />

@@ -14,6 +14,7 @@ const {
     deleteTravel,
     updateTravel,
     addTravel,
+    getConcerts
 } = require("./handlers")
 
 express()
@@ -35,6 +36,7 @@ express()
 .use("/", express.static(__dirname + "/"))
 
 .get("/concerts/:year", getConcertsByYear)
+.get("/concerts", getConcerts)
 .get("/cities/:city", getCity)
 .get("/get-years", getYears)
 .get("/travels/:username/:year", getTravelsByYear)

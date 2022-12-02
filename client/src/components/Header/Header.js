@@ -52,6 +52,9 @@ const Header = () =>{
                     <Span>Earth Trotter</Span>
                     <FiGlobe /> 
                 </Greet>
+                <Greet onClick={() => {window.location.href = '/about';}}>
+                    <Span>About</Span>
+                </Greet>
             </Div>
             <DropDown user={user} handleYears={handleYears} years={years} />
         </Wrapper>
@@ -65,7 +68,7 @@ const Div = styled.div`
 const Greet = styled.button`
     font-weight: 600;
     height: 28px;
-    width: 200px;
+    width: 120px;
     display: flex;
     align-items: center;
     border-radius: 5px;
@@ -79,7 +82,7 @@ const Greet = styled.button`
 const Span = styled.p`
     margin: 0px 6px;
     color: white;
-    font-size: 13px;
+    font-size: 12px;
 `
 const Wrapper = styled.div`
     font-size: 12px;
