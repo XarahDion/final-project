@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Dropdown = ({user, isAuthenticated, years, handleYears}) => {
@@ -31,6 +31,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     font-weight: 200;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0%);
 `
 
 export default Dropdown;

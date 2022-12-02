@@ -15,13 +15,13 @@ const LoginButton = () => {
     )
 };
 
-const Span = styled.p`
+const Span = styled.div`
     font-weight: 600;
 `
 
 const Login= styled.button`
     height: 28px;
-    width: 80px;
+    width: 74px;
     display: flex;
     align-items: center;
     justify-content: space-between;

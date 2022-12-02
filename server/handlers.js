@@ -100,43 +100,6 @@ const getYears = async (req, res) => {
     }
 };
 
-// creates a travel documents to user collection
-// also creates index for date field to be able to $text $search
-const addTravel = async (req, res) => {
-    const info = req.body
-    const client = new MongoClient(MONGO_URI, options);
-
-    try { 
-        const coords = []
-        await getPositionFromAddress(info.city, info.country).then((result) => {
-            console.log(result)
-            if (result === undefined) {
-                throw new Error;
-            } else {
-                coords.push(result[0], result[1])
-            }
-        });
-            console.log("1", coords)
-        await client.connect();
-        const db = client.db("final-project");
-        const result = await db.collection(`${info.username}`).insertOne({
-            _id: uuidv4(),
-            date: info.date,
-            venue: info.venue,
-            city: info.city,
-            country: info.country,
-            coordinates: coords
-        });
-
-        await db.collection(`${info.username}`).createIndex( { date: "text" } );
-        res.status(201).json({ status: 201, data: result});
-    } catch (err) {
-        res.status(500).json({ status: 500, data: req.body, message: "An error has occured, please try again." });
-    } finally {     
-    client.close();
-    }
-};
-
 // returns an array of all year numbers for username collection
 const getUserYears = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
@@ -194,6 +157,30 @@ const getAllTravels = async (req, res) => {
     }
 };
 
+// for a given user, returns a single travel by _id
+const getTravelById= async (req, res) => {
+    const { username, _id } = req.params
+    const client = new MongoClient(MONGO_URI, options);
+
+    try {
+        await client.connect();
+        const db = client.db("final-project");
+        let result = await db.collection(`${username}`).findOne({ _id })
+        let newResult = {
+            _id: result._id,
+            date: result.date,
+            venue: result.venue,
+            city: result.city,
+            country: result.country
+        }
+        res.status(200).json({ status: 200, data: newResult })
+    } catch (err) {
+        res.status(404).json({ status: 404, data: "Not Found" });
+    } finally {
+    client.close();
+    }
+};
+
 /// deletes one travel in user collection by its _id
 const deleteTravel = async (req, res) => {
     const info = req.params ;
@@ -218,15 +205,82 @@ const deleteTravel = async (req, res) => {
     }
 };
 
+// creates a travel documents to user collection
+const addTravel = async (req, res) => {
+    const {username, date, venue, city, country} = req.body
+    const client = new MongoClient(MONGO_URI, options);
+
+    try { 
+        const regex = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
+        if (date.match(regex) === null) {
+            throw new Error;
+        }
+
+        const hasWhiteSpace = (city) => {
+            return /\s/g.test(city);
+        }
+        if (hasWhiteSpace(city) || hasWhiteSpace(country)) {
+            throw new Error;
+        }
+
+        const coords = []
+        await getPositionFromAddress(city, country).then((result) => {
+            if (result === undefined) {
+                throw new Error;
+            } else {
+                coords.push(result[0], result[1])
+            }
+        });
+
+        await client.connect();
+        const db = client.db("final-project");
+        const result = await db.collection(`${username}`).insertOne({
+            _id: uuidv4(),
+            date: date,
+            venue: venue,
+            city: city,
+            country: country,
+            coordinates: coords
+        });
+
+        await db.collection(`${username}`).createIndex( { date: "text" } ); // creates index for date field to be able to $text $search
+
+        res.status(201).json({ status: 201, data: result});
+    } catch (err) {
+        res.status(500).json({ status: 500, data: req.body, message: "An error has occured, please try again." });
+    } finally {     
+    client.close();
+    }
+};
+
 // updates a single travel in user collection
 const updateTravel = async (req, res) => {
-    const info = req.params ;
-    const _id = info._id
-    const username = info.username
+    const {_id, username} = req.params ;
     const { date, venue, city, country } = req.body
     const client = new MongoClient(MONGO_URI, options);
 
     try {
+        const regex = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
+        if (date.match(regex) === null) {
+            throw new Error;
+        }
+
+        const hasWhiteSpace = (city) => {
+            return /\s/g.test(city);
+        }
+        if (hasWhiteSpace(city) || hasWhiteSpace(country)) {
+            throw new Error;
+        }
+
+        const coords = []
+        await getPositionFromAddress(city, country).then((result) => {
+            if (result === undefined) {
+                throw new Error;
+            } else {
+                coords.push(result[0], result[1])
+            }
+        });
+
         await client.connect();
         const db = client.db("final-project");
         const newValues = { $set: {
@@ -244,33 +298,9 @@ const updateTravel = async (req, res) => {
             res.status(201).json({ status: 201, data: result })
         }
     } catch (err) {
-        console.log(err.stack)
+        res.status(500).json({ status: 500, data: req.body, message: "An error has occured, please try again." });
     } finally {
         client.close();
-    }
-};
-
-// for a given user, returns a single travel by _id
-const getTravelById= async (req, res) => {
-    const { username, _id } = req.params
-    const client = new MongoClient(MONGO_URI, options);
-
-    try {
-        await client.connect();
-        const db = client.db("final-project");
-        let result = await db.collection(`${username}`).findOne({ _id })
-        let newResult = {
-            _id: result._id,
-            date: result.date,
-            venue: result.venue,
-            city: result.city,
-            country: result.country
-        }
-        res.status(200).json({ status: 200, data: newResult })
-    } catch (err) {
-        res.status(404).json({ status: 404, data: "Not Found" });
-    } finally {
-    client.close();
     }
 };
 

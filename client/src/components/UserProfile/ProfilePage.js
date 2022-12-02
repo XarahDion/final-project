@@ -30,11 +30,11 @@ const Profile = () => {
         .then((res) => res.json())
         .then((data) => {
             if (data.status >= 300) {
-                console.log(data.message)
+                setPostErr(data.message)
             } else if (data.data.modifiedCount === 0) {
                 setUpdateErr(true)
             } else {
-                setTravelState(data.data)
+                setTravelState(formData._id)
                 setFormData("")
                 setUpdateId("")
             }
@@ -148,7 +148,7 @@ const ImgDiv = styled.div`
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
     padding: 24px;
-    height: 169px;
+    height: 185px;
     width: 169px;
 `
 

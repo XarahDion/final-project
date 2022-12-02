@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import logo from "../assets/loadingIcon.gif";
@@ -39,6 +38,7 @@ const Concerts = () => {
                 <Container>
                 <Name>Concert Collection</Name>
                 {Object.values(concerts).map((concert) => {
+                    if (concert.city !== "Helsinki")
                     return (
                         <Tippy key={concert._id} content={<Span>Go to {concert.city}, {concert.country}</Span>}>
                         <TravelDiv onClick={(e) => handleClick(e, concert)}>

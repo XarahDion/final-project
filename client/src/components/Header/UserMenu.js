@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import avatar from "../../assets/avatar.jpg";
@@ -57,12 +57,12 @@ const Img = styled.img`
 const Div = styled.div`
     display: flex;
     align-items: center;
-    
+    justify-content: center;
+    gap: 8px;
 `
 const Greet = styled.button`
     font-weight: 600;
     height: 28px;
-    width: 170px;
     display: flex;
     align-items: center;
     font-size: 12px;

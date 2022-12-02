@@ -4,17 +4,18 @@ import { UserContext } from './hooks/UserContext';
 import styled from "styled-components";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
-const Home = () =>{
+const Home = () => {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [coords, setCoords] = useState([-73.5674, 45.5019]);
+    const [coords, setCoords] = useState([]);
+    const [userCoords, setUserCoords] = useState([-73.5674, 45.5019]);
     const [zoom, setZoom] = useState(9);
     const [pitch, setPitch] = useState(25);
     const { concerts, travels, selectedYear } = useContext(UserContext);
 
     useEffect (() =>{
         navigator.geolocation.getCurrentPosition((position) => {
-            setCoords([position.coords.longitude.toFixed(4), position.coords.latitude.toFixed(4)])
+            setUserCoords([position.coords.longitude.toFixed(4), position.coords.latitude.toFixed(4)])
         })
     },[])
 
@@ -22,7 +23,7 @@ const Home = () =>{
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/xarah/clb2a8jp2000314mkyrl23ksw',
-            center: coords,
+            center: userCoords,
             zoom: zoom,
             pitch: pitch
         });
@@ -34,7 +35,7 @@ const Home = () =>{
             color: "black",
             scale: 0.75
         })
-        .setLngLat(coords)
+        .setLngLat(userCoords)
         .addTo(map.current)
         map.current.addControl(
             new mapboxgl.GeolocateControl({
@@ -55,10 +56,11 @@ const Home = () =>{
         //             <button class="popup" type="submit">Montreal</button>
         //         </form>`)
         // )
-    }, [selectedYear, coords]);
+    }, [selectedYear, userCoords]);
 
     useEffect(() => {
         if (concerts) {
+            setCoords([9.1829, 48.7758])
             map.current.flyTo({
                 center: [9.1829, 48.7758],
                 duration: 12000, // Animate over 12 seconds
@@ -88,13 +90,13 @@ const Home = () =>{
 
     useEffect(() => {
         if (travels) {
-            // setCoords(travels[0].coordinates)
+            setCoords(travels[0].coordinates)
             map.current.flyTo({
                 center: travels[0].coordinates,
                 duration: 12000, // Animate over 12 seconds
                 essential: true,
                 zoom: 3.5,
-                pitch: 25,
+                pitch: 0,
             })
         Object.values(travels).map((travel) => {
             return new mapboxgl.Marker({
@@ -117,10 +119,16 @@ const Home = () =>{
 
     return (
         <Div>
-        <div className="sidebar">
-            Longitude: {coords[0]} | Latitude: {coords[1]} | Zoom: {zoom}
-        </div>
-        <div ref={mapContainer} className="map-container" />
+            {travels?
+            <div className="sidebar">
+                Longitude: {coords[0]} | Latitude: {coords[1]} | Zoom: {zoom}
+            </div>
+            :
+            <div className="sidebar">
+                Longitude: {userCoords[0]} | Latitude: {userCoords[1]} | Zoom: {zoom}
+            </div>
+}
+            <div ref={mapContainer} className="map-container" />
         </Div>
     )
 }

@@ -27,8 +27,14 @@ const City = () => {
                 setLon(selectedCity.data[0].attributes.longitude)
                 setLat(selectedCity.data[0].attributes.latitude)
             } else {
-                setLon(((selectedCity.data[0].attributes.bounding_box.sw_lon + selectedCity.data[0].attributes.bounding_box.ne_lon)/2).toFixed(4))
-                setLat(((selectedCity.data[0].attributes.bounding_box.sw_lat + selectedCity.data[0].attributes.bounding_box.ne_lat)/2).toFixed())
+                setLon(((selectedCity.data[0].attributes.bounding_box.sw_lon
+                            +
+                        selectedCity.data[0].attributes.bounding_box.ne_lon)
+                        /2).toFixed(4))
+                setLat(((selectedCity.data[0].attributes.bounding_box.sw_lat
+                            +
+                        selectedCity.data[0].attributes.bounding_box.ne_lat)
+                        /2).toFixed(4))
             }
         }
     }, [selectedCity])
@@ -76,7 +82,7 @@ const City = () => {
                 <KnownFor>
                 {newarr.map((item) => {
                     return (
-                        <Span>{item}</Span>
+                        <Span key={item}>{item}</Span>
                     )
                 })}
                 </KnownFor>
@@ -107,9 +113,9 @@ const Container = styled.div`
     font-family: monospace;
     z-index: 1;
     position: absolute;
-    top: 76px;
-    left: 0;
-    margin-left: 24px;
+    top: 70px;
+    left: 50%;
+    transform: translate(-100px, 0%);
     border-radius: 4px;
     width: 200px;
     text-align: center;
@@ -136,8 +142,8 @@ const Title = styled.div`
     z-index: 1;
     position: absolute;
     top: 24px;
-    left: 0;
-    margin: 0px 24px;
+    left: 50%;
+    transform: translate(-100px, 0%);
     border-radius: 4px;
     text-align: center;
     width: 200px;

@@ -2,7 +2,16 @@ import styled from "styled-components"
 import Input from "./Input"
 
 /// renders the form component
-const Form = ({ handleSubmit, handleUpdate, formData, setFormData, updateErr, updateId, postErr, setPostErr }) => {
+const Form = ({
+    handleSubmit,
+    handleUpdate,
+    formData,
+    setFormData,
+    updateErr,
+    updateId,
+    postErr,
+    setPostErr
+    }) => {
 
     /// registers what is inputted in the input fields 
     const handleChange = (key, value) => {
@@ -49,14 +58,13 @@ const Form = ({ handleSubmit, handleUpdate, formData, setFormData, updateErr, up
                 />
                 <Input 
                     type="text" 
-                    placeholder="Country"
+                    placeholder="Country (no blank spaces)"
                     name={"country"}
                     required={true}
                     data={formData && formData.country}
                     handleChange={handleChange} 
                 />
             </InDiv>
-            {/* the Submit button fires the handleSubmit function */}
             {postErr ? <Err>{postErr}</Err> : <Err></Err>}
             <BtnDiv>
                 <Button type="submit" 
