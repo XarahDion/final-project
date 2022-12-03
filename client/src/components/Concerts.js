@@ -36,7 +36,7 @@ const Concerts = () => {
         <Main>
             {concerts?
                 <Container>
-                <Name>Concert Collection</Name>
+                <Name>Xarah Dion Concert Collection</Name>
                 {Object.values(concerts).map((concert) => {
                     if (concert.city !== "Helsinki")
                     return (
@@ -79,23 +79,25 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     font-family: var(--font-body);
-    margin: 24px 0px;
 `
 const Container = styled.div`
-    width: 500px;
+    width: 600px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
     padding: 24px;
+    margin: 20px;
 `
 const TravelDiv= styled.div`
     font-size: 12px;
+    width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px;
+    padding: 12px 24px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
     &:hover {
