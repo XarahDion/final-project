@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import styled from "styled-components";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const EmblaCarousel = ({ options = { loop: false } }) => { 
-  const { isAuthenticated } = useAuth0(); // use isAuthenticated to reload component
-  const [state, setState] = useState(null); // use state to reload component
   const autoplay = useRef( 
     Autoplay(
       { delay: 5000, stopOnInteraction: false }, 
@@ -16,14 +13,8 @@ const EmblaCarousel = ({ options = { loop: false } }) => {
 
   const [emblaRef] = useEmblaCarousel(options, [autoplay.current]);  // here we pass the autoplay instance to the hook
 
-  useEffect(() => { // trigger reload to start autoplay of embla carousel
-    setTimeout(() => {
-      setState("reload"); 
-    }, 3000);
-  }, [isAuthenticated]);
-
   return (
-    <>{isAuthenticated? <></> :<></>}
+    <>
       <EmblaSlideshowWrapper>
       <div className="embla__viewport" ref={emblaRef}>
         <EmblaContainer>
