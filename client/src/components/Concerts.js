@@ -29,6 +29,7 @@ const Concerts = () => {
         })
         .catch((error) => {
             setError(true);
+            navigate("/error"); // send user to error page if fetch error happens
         })
     }, [])
 

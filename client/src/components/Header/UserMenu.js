@@ -5,20 +5,18 @@ import avatar from "../../assets/avatar.jpg";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
 
-const UserMenu = ({user, isAuthenticated, isLoading, years, handleYears}) => {
+const UserMenu = ({user, isAuthenticated, isLoading, years}) => {
 
     return (
         <>
-        {isLoading? <Greet></Greet>
+        {isLoading? <Greet></Greet> // if loading, do not display the optional dropdown and buttons
         :<>
-        <Dropdown user={user}
+        <Dropdown user={user} // pass down props to child component
             isAuthenticated={isAuthenticated}
             isLoading={isLoading}
-            years={years}
-            handleYears={handleYears} />
-        
+            years={years} />
         <Div>
-        {isAuthenticated ? 
+        {isAuthenticated ? // if user is authenticated display profile and log out button
         <>
         <Profile to="/profile">
             <Greet>
@@ -28,10 +26,11 @@ const UserMenu = ({user, isAuthenticated, isLoading, years, handleYears}) => {
                 }
             </Greet>
         </Profile>
-        <LogoutButton />
+        <LogoutButton /> 
         </>
         :<>
-        <Profile to="/concerts">
+        {/* if user is not authenticated display all concerts and log in button */}
+        <Profile to="/concerts"> 
             <Greet>
                 All Concerts
                 <Img async="on" src={avatar} alt="Xarah" />

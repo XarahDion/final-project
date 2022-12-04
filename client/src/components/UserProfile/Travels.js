@@ -12,9 +12,10 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
     const [travels, setTravels] = useState();
     const navigate = useNavigate();
 
-    const handlePopulate = (e, travel) => {
-        e.preventDefault();
-        e.stopPropagation();
+    const handlePopulate = (e, travel) => { // fired by the modify button 
+        e.preventDefault(); //prevent default behavior
+        e.stopPropagation(); // this will stop the parent component's event from firing. 
+        // fetch on username (from Auth0 hook) and _id (set in fetch in map method in child component Travels)
         fetch(`/get-travel/${user.name}/${travel._id}`)
         .then(results => results.json())
         .then ( data => {
@@ -22,45 +23,48 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
                 throw new Error(data.message);
             }
             else {
-                setFormData(data.data);
-                setUpdateErr(false);
+                setFormData(data.data); // populates the form with the data received from the BE
+                setUpdateErr(false); 
                 setUpdateId(travel._id);
             }
         })
         .catch((error) => {
             setError(true);
+            navigate("/error"); // send user to error page if fetch error happens
         })
         }
 
     const handleClick = (e, travel) => {
         e.preventDefault();
-        e.stopPropagation();
-        navigate(`/cities/${travel.city}/${travel.country}`)
+        // navigate to dedicated city page by querying on city and country (RoadGoat API uses country as fallback option)
+        navigate(`/cities/${travel.city}/${travel.country}`); 
     }
 
     useEffect ( () => {
-        if (user) {
-        fetch(`/get-travels/${user.name}`)
+        if (user) { // wait for the user to be set
+        fetch(`/get-travels/${user.name}`) // fetch on username
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {
                 throw new Error(data.message);
             }
             else {
-                setTravels(data.data);
+                setTravels(data.data); // set the travels array
             }
         })
         .catch((error) => {
             setError(true);
+            navigate("/error"); // send user to error page if fetch error happens
         })
         }
-    }, [ user, travelState])
+    }, [ user, travelState]); // fire the useEffect everytime the travelState changes to display the up to date travels
 
     return (
         <Main>
-            {travels?
+            {travels? // wait for travels state to be set
                 <Container>
                 <Name>Travel Collection</Name>
+                {/* if there are no travels in username collection, invite user to add travel */}
                 {travels.length === 0 ? <Err>Please add travel to collection.</Err> : <></>}
                 {Object.values(travels).map((travel) => {
                     return (
@@ -82,7 +86,8 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
                     )
                 })}
                 </Container>
-            : <Logo src={logo} alt="loading" />}
+            // display loading state while we wait for travels
+            : <Logo src={logo} alt="loading" />} 
         </Main>
     )
 }

@@ -5,82 +5,85 @@ import logo from "../assets/loadingIcon.gif";
 import { useNavigate } from "react-router-dom";
 import { FiActivity } from "react-icons/fi";
 
+// component displaying a city's picture, coordinates and "know for" tags retrieved from the RoadGoat API
 const City = () => {
-    const [selectedCity, setSelectedCity] = useState(null);
-    const {city, country} = useParams();
-    const [lon, setLon] = useState();
+    const [selectedCity, setSelectedCity] = useState(null); // declare selectedCity state
+    const { city, country } = useParams(); // use city + country as params from Travels (in list) or Home (in popup) components
+    const [lon, setLon] = useState(); // declare longitude and latitude states
     const [lat, setLat] = useState();
-    const newarr = []
+    const newarr = []; // declare newarr which will contain "known_for" tags if they exists for selected city in RoadGoat data
     const navigate = useNavigate();
 
-    if (selectedCity) {
+    if (selectedCity) { 
         selectedCity.included.forEach((item) => {
-            if (item.type === "known_for") {
+            if (item.type === "known_for") { // if "known_for" values exits, push in newarr
                 newarr.push(item.attributes.name)
             }
         });
     }
 
-    useEffect(() => {
-        if (selectedCity){
-            if (selectedCity.data[0].attributes.bounding_box === null) {
-                setLon(selectedCity.data[0].attributes.longitude)
-                setLat(selectedCity.data[0].attributes.latitude)
-            } else {
+    useEffect(() => { // manipulate the data received from RoadGoat to display the coordinates of selectedCity
+        if (selectedCity) {
+            if (selectedCity.data[0].attributes.bounding_box === null) { 
+                setLon(selectedCity.data[0].attributes.longitude);
+                setLat(selectedCity.data[0].attributes.latitude);
+            } else { // if the coords come in bounding_box values, calculate the average betwen sw and ne values
                 setLon(((selectedCity.data[0].attributes.bounding_box.sw_lon
                             +
                         selectedCity.data[0].attributes.bounding_box.ne_lon)
-                        /2).toFixed(4))
+                        /2).toFixed(4));
                 setLat(((selectedCity.data[0].attributes.bounding_box.sw_lat
                             +
                         selectedCity.data[0].attributes.bounding_box.ne_lat)
-                        /2).toFixed(4))
+                        /2).toFixed(4));
             }
         }
-    }, [selectedCity])
+    }, [selectedCity]); // fire everytime the selectedCity changes
     
 
     useEffect ( () => {
-        const handleCities = async () => {
+        const handleCities = async () => { // handle selectedCity data
             try {
-            let res = await fetch(`/cities/${city}`)
+            let res = await fetch(`/cities/${city}`) // first try fetching on city only
             let data = await res.json()
             if (data.status >= 300) {
                 throw new Error(data.message);
             }
-            if (data.data.included.length === 0 ) {
+            if (data.data.included.length === 0 ) { // if the city doesn't include a photo, fetch on country
                 res = await fetch(`/cities/${country}`)
                 data = await res.json()
             }
-            if (!data.data.data[0].relationships.featured_photo.data) {
+            if (!data.data.data[0].relationships.featured_photo.data) { // another place to check for included photo
                 res = await fetch(`/cities/${country}`)
                 data = await res.json()
             }
-            if (data.data.data.length === 0) {
+            if (data.data.data.length === 0) { // if the city doesn't exist in RoadGoat API db, fetch on country
                 res = await fetch(`/cities/${country}`)
                 data = await res.json()
             }
-            setSelectedCity(data.data)
+            setSelectedCity(data.data);
             } catch (err) {
-                navigate("/error")
+                // if there is a status >= 300 or if data returned is empty or in any other form, navigate to error page
+                navigate("/error"); 
             }
         }
-        handleCities()
+        handleCities();
     }, [])
 
     return (
         <Div>
-        {selectedCity ?
+        {selectedCity ? // wait for selectedCity
         <>
+        {/* display the city or country picture */}
             <Banner src={selectedCity.included[0].attributes.image.full} alt={city} /> 
             <Title>{city}, {country}</Title>
-            {newarr.length !== 0 ?
+            {newarr.length !== 0 ? // display the known for tags is they exist
             <Container>
                 <FiDiv>
                     <FiActivity /><Span>Known For</Span><FiActivity />
                 </FiDiv>
                 <KnownFor>
-                {newarr.map((item) => {
+                {newarr.map((item) => { // map on newarr in which we have pushed the known for tags
                     return (
                         <Span key={item}>{item}</Span>
                     )
@@ -88,10 +91,12 @@ const City = () => {
                 </KnownFor>
             </Container>
             : <></>}
-            <div className="sidebar">
+            <div className="sidebar"> 
+            {/* display the longitude and latitude */}
                 Longitude: {lon} | Latitude: {lat}
             </div>
         </>
+        // show a loading state while waiting for selectedCity
         : <Logo src={logo} alt="loading" />}
         </Div>
     )

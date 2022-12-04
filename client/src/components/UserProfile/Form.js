@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import Input from "./Input"
 
-/// renders the form component
 const Form = ({
     handleSubmit,
     handleUpdate,
@@ -13,7 +12,7 @@ const Form = ({
     setPostErr
     }) => {
 
-    /// registers what is inputted in the input fields 
+    /// registers what is inputted in the input fields and stores it in state as formData
     const handleChange = (key, value) => {
         setFormData({
             ...formData,
@@ -35,7 +34,7 @@ const Form = ({
                     placeholder="DD/MM/YYY"
                     name={"date"}
                     required={true}
-                    data={formData && formData.date}
+                    data={formData && formData.date} // passes down data to the child component Input
                     handleChange={handleChange} 
                 />
                 <Input 
@@ -65,14 +64,16 @@ const Form = ({
                     handleChange={handleChange} 
                 />
             </InDiv>
+            {/* if there's an error on inputting for post or patch fetches, display error */}
             {postErr ? <Err>{postErr}</Err> : <Err></Err>}
             <BtnDiv>
-                <Button type="submit" 
-                    disabled={updateId ? true : false}> Add Travel </Button>
+                <Button type="submit" //disable button when user wants to update a travel and vice versa
+                    disabled={updateId ? true : false}> Add Travel </Button> 
                 <Button type="submit"
-                    onClick={(e) => handleUpdate(e, formData)}
+                    onClick={(e) => handleUpdate(e, formData)} // fires the handleUpdate function in ProfilePage, fires the patch fetch
                     disabled={!updateId ? true : false}> Modify Travel </Button>
             </BtnDiv>
+            {/* user has to click on modify button in travels' list to populate the form before being able to modify from Form */}
             {updateErr || !updateId ? <Err>To modify a travel, please select a travel from the list below.</Err> : <Err></Err>}
         </StyledForm>
     )

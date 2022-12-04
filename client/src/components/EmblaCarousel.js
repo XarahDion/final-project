@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import styled from "styled-components";
 
 const EmblaCarousel = ({ options = { loop: false } }) => { 
+  const [state, setState] = useState(null); // use state to reload component
   const autoplay = useRef( 
     Autoplay(
       { delay: 5000, stopOnInteraction: false }, 
@@ -11,7 +12,11 @@ const EmblaCarousel = ({ options = { loop: false } }) => {
     )
   );
 
-  const [emblaRef] = useEmblaCarousel(options, [autoplay.current]);  // <== Here we pass the autoplay instance to the hook
+  const [emblaRef] = useEmblaCarousel(options, [autoplay.current]);  // here we pass the autoplay instance to the hook
+
+  useEffect(() => {
+    setState("reload"); // trigger reload to start autoplay of embla carousel
+  }, []);
 
   return (
     <>

@@ -10,7 +10,7 @@ import ErrorPage from "./ErrorPage";
 import Concerts from "./Concerts";
 
 const App = () => {
-  
+  // returns all routes
   return (
     <BrowserRouter>
       <GlobalStyles />

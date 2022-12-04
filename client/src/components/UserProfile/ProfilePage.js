@@ -3,24 +3,28 @@ import styled from "styled-components";
 import Form from "./Form";
 import Travels from "./Travels";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+// handles the state and fetches for the user profile page
 const Profile = () => {
     const { user, isAuthenticated } = useAuth0();
-    const [travelState, setTravelState] = useState();
+    const [travelState, setTravelState] = useState(); // used to fetch travels in child component Travels on every state change
     const [formData, setFormData] = useState();
     const [updateErr, setUpdateErr] = useState(false);
     const [updateId, setUpdateId] = useState();
     const [postErr, setPostErr] = useState();
+    const navigate = useNavigate(); //declare navigate as a function
 
-    const handleUpdate = (e, formData) => {
+    const handleUpdate = (e, formData) => { // modify existing travel
         e.preventDefault();
-        fetch(`/update-travel/${user.name}/${formData._id}`, {
+        // fetch on username (from Auth0 hook) and _id (set in fetch in handlePopulate in child component Travels)
+        fetch(`/update-travel/${user.name}/${formData._id}`, { 
             method: "PATCH",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ /// sends the data to the BE in key/value pairs
+            body: JSON.stringify({ // sends the data to the BE in key/value pairs
                 date: formData.date,
                 venue: formData.venue,
                 city: formData.city,
@@ -32,36 +36,39 @@ const Profile = () => {
             if (data.status >= 300) {
                 setPostErr(data.message)
             } else if (data.data.modifiedCount === 0) {
-                setUpdateErr(true)
+                setUpdateErr(true);
             } else {
+                // toggle between setting travelState to city and _id to be able to update the same travel more than once in a row
                 if (travelState === formData._id) {
-                    setTravelState(formData.city)
+                    setTravelState(formData.city);
                 } else {
-                    setTravelState(formData._id)
+                    setTravelState(formData._id);
                 }
-                setFormData("")
-                setUpdateId("")
+                // on success, clear the form to view placeholders and clear updateId state to disable modify button
+                setFormData("");
+                setUpdateId("");
             }
         })
     }
 
-    const handleRemove = (e, travel) => {
+    const handleRemove = (e, travel) => { // delete existing travel 
         e.preventDefault();
         e.stopPropagation();
+        // fetch on username (from Auth0 hook) and _id (set in fetch in map method in child component Travels)
         fetch(`/delete-travel/${user.name}/${travel._id}`, {
             method: "DELETE"
         })
         .then((res) => res.json())
         .then((data) => {
             if (data.status >= 300) {
-                console.log(data.message)
+                navigate("/error");
             } else {
-                setTravelState(travel._id)
+                setTravelState(travel._id); // set travelState to refresh Travels component from useEffect hook
             }
         })
     }
 
-    const handleSubmit = (e, formData) => {
+    const handleSubmit = (e, formData) => { // add new travel to username db collection
         e.preventDefault();
         fetch('/travels', {
             method: "POST",
@@ -69,7 +76,7 @@ const Profile = () => {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ /// sends the data to the BE in key/value pairs
+            body: JSON.stringify({ // sends the data to the BE in key/value pairs
                 username: user.name,
                 date: formData.date,
                 venue: formData.venue,
@@ -80,16 +87,16 @@ const Profile = () => {
         .then(res => res.json())
         .then((data) => {
             if (data.status >= 300) {
-                setPostErr(data.message);
+                setPostErr(data.message); // if the operation fails, set a state to notify user
             }
             else {
-                setTravelState(data.data.insertedId);
-                setFormData("");
-                setPostErr(null);
+                setTravelState(data.data.insertedId); // set travelState to refresh Travels component from useEffect hook
+                setFormData(""); // clear the Form
+                setPostErr(null); // clear the post error message
             }
         })
         .catch((error) => {
-            window.alert(error);
+            navigate("/error");
         })
     }
 
@@ -101,7 +108,7 @@ const Profile = () => {
                         <Img async="on" src={user.picture} />
                         <Name>{user.name}'s Profile</Name>
                     </ImgDiv>
-                    {/* the Form component is passed the handleSubmit function */}
+                    {/* the child components are passed the required states and functions*/}
                     <Form handleSubmit={handleSubmit}
                         formData={formData}
                         setFormData={setFormData}

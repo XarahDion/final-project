@@ -1,14 +1,19 @@
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from '../hooks/UserContext';
 
-const Dropdown = ({user, isAuthenticated, years, handleYears}) => {
+const Dropdown = ({user, isAuthenticated, years}) => {
+    const { handleYears } = useContext(UserContext); 
 
     return (
         <Container>
-        {useLocation().pathname === "/" ?
+        {useLocation().pathname === "/" ? // show dropdown only on home page
         <label>
-            {isAuthenticated ? `${user.name}'s Travels :` : "Xarah Dion's Concerts :"}
-            <Select onChange={handleYears}>
+            {/* dropdown conditionally rendered with user authentication */}
+            {isAuthenticated ? `${user.name}'s Travels :` : "Xarah Dion's Concerts :"} 
+            {/* dropdown is passed the handleYears function from the UserContext */}
+            <Select onChange={handleYears}> 
             <option value="">Select a year...</option>
             {!years ? <h1>Loading...</h1>
             : years.map ((year) => {

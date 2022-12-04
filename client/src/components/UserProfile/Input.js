@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-// renders the input field for the form
 const Input = ({type, placeholder, name, required, handleChange, data}) => {
     
     return (
