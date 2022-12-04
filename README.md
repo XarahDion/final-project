@@ -22,9 +22,5 @@ yarn install
 * Github: [@XarahDion](https://github.com/XarahDion)
 * LinkedIn: [@xarahdion](https://linkedin.com/in/xarahdion)
 
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
