@@ -6,8 +6,11 @@ const PORT = 8000;
 const {
     getConcerts,
     getConcertsByYear,
-    getCity,
     getYears,
+    getCity
+} = require("./handlers")
+
+const {
     getTravelsByYear,
     getUserYears,
     getAllTravels,
@@ -15,7 +18,7 @@ const {
     addTravel,
     deleteTravel,
     updateTravel,
-} = require("./handlers")
+} = require("./userHandlers")
 
 express()
 .use(function (req, res, next) {
