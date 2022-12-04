@@ -3,13 +3,14 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import styled from "styled-components";
 
-const EmblaCarousel = ({ options = { loop: false, number: 20, active: true } }) => { 
+const EmblaCarousel = ({ options = { loop: false } }) => { 
   const autoplay = useRef( 
     Autoplay(
-      { delay: 5000 }, 
+      { delay: 5000, stopOnInteraction: false }, 
       (emblaRoot) => emblaRoot.parentElement  // emblaRoot is the carousel container
     )
   );
+
   const [emblaRef] = useEmblaCarousel(options, [autoplay.current]);  // <== Here we pass the autoplay instance to the hook
 
   return (

@@ -119,7 +119,7 @@ const Home = () => {
             <div className="sidebar">
                 Longitude: {userCoords[0]} | Latitude: {userCoords[1]} | Zoom: {zoom}
             </div>
-}
+            }
             <div ref={mapContainer} className="map-container" />
         </Div>
     )

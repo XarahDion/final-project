@@ -73,6 +73,7 @@ const Name = styled.div`
 const Logo = styled.img`
     width: 40px;
     height: 40px;
+    margin: 24px;
 `
 const Main = styled.div`
     display: flex;
