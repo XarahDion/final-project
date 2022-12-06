@@ -18,7 +18,7 @@ const About = () => {
         </SidebarLeft>
         <Title >About Earth Trotter and Xarah Dion</Title>
         <BioDiv>Earth Trotter is Xarah Dion's final project for the Concordia University Full-Stack MERN Web Developement Bootcamp.
-            It makes use of HTML, CSS, ES6 JavasScript and React on the front-end, NodeJS, ExpressJS and MongoDB on the back-end, and intergrates of the following APIs : OpenCage, MapboxGL, Auth0 and RoadGoat.
+            It makes use of HTML, CSS, ES6 JavasScript and React on the front-end, NodeJS, ExpressJS and MongoDB on the back-end, and intergrates the following APIs : OpenCage, MapboxGL, Auth0 and RoadGoat.
             Music producer, touring musician, longtime recording artist, now transitioning into full-stack web development, honing her coding skills with the same passion and attention to detail and method she acquired in her music career.
         </BioDiv>
         <BioDiv>Earth Trotter est le projet final de Xarah Dion pour le bootcamp en développement Web Full-Stack MERN de l'université Concordia.
