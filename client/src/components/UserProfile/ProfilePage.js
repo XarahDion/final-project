@@ -35,12 +35,13 @@ const Profile = () => {
         .then((data) => {
             if (data.status >= 300) {
                 setPostErr(data.message)
+                navigate("/error");
             } else if (data.data.modifiedCount === 0) {
                 setUpdateErr(true);
             } else {
-                // toggle between setting travelState to city and _id to be able to update the same travel more than once in a row
+                // toggle between setting travelState to city and _id to be able to delete most recent document
                 if (travelState === formData._id) {
-                    setTravelState(formData.city);
+                    setTravelState(formData.city); // setting travelState refreshes component to view updated collection
                 } else {
                     setTravelState(formData._id);
                 }
@@ -63,9 +64,15 @@ const Profile = () => {
             if (data.status >= 300) {
                 navigate("/error");
             } else {
-                setTravelState(travel._id); // set travelState to refresh Travels component from useEffect hook
+                // toggle between setting travelState to city and _id to be able to delete most recent document
+                if (travelState === travel._id) {
+                    setTravelState(travel.city);
+                } else {
+                    setTravelState(travel._id);
+                }
             }
         })
+        
     }
 
     const handleSubmit = (e, formData) => { // add new travel to username db collection
@@ -88,15 +95,18 @@ const Profile = () => {
         .then((data) => {
             if (data.status >= 300) {
                 setPostErr(data.message); // if the operation fails, set a state to notify user
+                navigate("/error");
             }
             else {
-                setTravelState(data.data.insertedId); // set travelState to refresh Travels component from useEffect hook
+                // toggle between setting travelState to city and _id to be able to update the same travel more than once in a row
+                if (travelState === formData.city) {
+                    setTravelState(data.data.insertedId); // set travelState to refresh Travels component from useEffect hook
+                } else {
+                    setTravelState(formData.city);
+                }
                 setFormData(""); // clear the Form
                 setPostErr(null); // clear the post error message
             }
-        })
-        .catch((error) => {
-            navigate("/error");
         })
     }
 

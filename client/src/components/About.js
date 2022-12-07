@@ -43,7 +43,7 @@ const About = () => {
 const Credit= styled.a`
     color: white;
     font-family: var(--font-body);
-    font-size: 12px;
+    font-size: 11px;
     position: fixed;
     right: 34px;
     top: 320px;
