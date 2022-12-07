@@ -16,6 +16,7 @@ const About = () => {
             <a href="https://www.facebook.com/xarahdion/" target="blank">
                 <FiFacebook size={22}/></a>
         </SidebarLeft>
+        <Credit href="http://www.mayamorphosis.com/" target="blank">Photos by Mayamorphosis</Credit>
         <Title >About Earth Trotter and Xarah Dion</Title>
         <BioDiv>Earth Trotter is Xarah Dion's final project for the Concordia University Full-Stack MERN Web Developement Bootcamp.
             It makes use of HTML, CSS, ES6 JavasScript and React on the front-end, NodeJS, ExpressJS and MongoDB on the back-end, and intergrates the following APIs : OpenCage, MapboxGL, Auth0 and RoadGoat.
@@ -39,6 +40,15 @@ const About = () => {
         )
 };
 
+const Credit= styled.a`
+    color: white;
+    font-family: var(--font-body);
+    font-size: 12px;
+    position: fixed;
+    right: 34px;
+    top: 320px;
+    font-style: italic;
+`
 const SidebarLeft = styled.div`
     color: white;
     position: fixed;
@@ -67,7 +77,7 @@ const BioDiv = styled.div`
     text-align: center;
 `
 const Title = styled.div`
-font-family: var(--font-body);
+    font-family: var(--font-body);
     font-size: 12px;
     color: white;
     width: 800px;
