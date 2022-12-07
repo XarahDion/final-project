@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Earth Trotter 👋</h1>
+<h1 align="center">🌍 Welcome to Earth Trotter 🌏</h1>
 <p>
   <a href="https://twitter.com/XarahDion" target="_blank">
     <img alt="Twitter: XarahDion" src="https://img.shields.io/twitter/follow/XarahDion.svg?style=social" />
