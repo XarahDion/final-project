@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-
-const PORT = 8000;
+const PORT = process.env.PORT || 3030;
 
 const {
     getConcerts,
