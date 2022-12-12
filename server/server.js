@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors")
 const PORT = process.env.PORT || 8000;
 
 const {
@@ -36,6 +37,9 @@ express()
 .use(express.json())
 .use(express.urlencoded({ extended: false }))
 .use("/", express.static(__dirname + "/"))
+.use(cors({
+    origin: ['http://localhost:3000', 'https://earth-trotter.render.com']
+}))
 
 .get("/concerts", getConcerts)
 .get("/concerts/:year", getConcertsByYear)
