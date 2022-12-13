@@ -29,7 +29,7 @@ const Header = () =>{
 
     useEffect ( () => {
         if (!user) // if user is not logged in fetch years' array from concerts db collection
-        fetch('/get-years')
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/get-years`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {

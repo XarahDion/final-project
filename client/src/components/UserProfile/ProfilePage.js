@@ -77,7 +77,7 @@ const Profile = () => {
 
     const handleSubmit = (e, formData) => { // add new travel to username db collection
         e.preventDefault();
-        fetch('/travels', {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/travels`, {
             method: "POST",
             headers: {
                 "Accept": "application/json",
