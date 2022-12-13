@@ -17,7 +17,7 @@ const Concerts = () => {
     }
 
     useEffect ( () => {
-        fetch(`/concerts`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/concerts`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {

@@ -18,7 +18,7 @@ const Profile = () => {
     const handleUpdate = (e, formData) => { // modify existing travel
         e.preventDefault();
         // fetch on username (from Auth0 hook) and _id (set in fetch in handlePopulate in child component Travels)
-        fetch(`/update-travel/${user.name}/${formData._id}`, { 
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/update-travel/${user.name}/${formData._id}`, { 
             method: "PATCH",
             headers: {
                 "Accept": "application/json",
@@ -56,7 +56,7 @@ const Profile = () => {
         e.preventDefault();
         e.stopPropagation();
         // fetch on username (from Auth0 hook) and _id (set in fetch in map method in child component Travels)
-        fetch(`/delete-travel/${user.name}/${travel._id}`, {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/delete-travel/${user.name}/${travel._id}`, {
             method: "DELETE"
         })
         .then((res) => res.json())

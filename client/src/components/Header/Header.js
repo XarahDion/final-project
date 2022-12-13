@@ -12,7 +12,7 @@ const Header = () =>{
 
     useEffect ( () => {
         if (user) // if user is logged in fetch years' array from username db collection
-        fetch(`/get-years/${user.name}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/get-years/${user.name}`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {

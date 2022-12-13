@@ -44,21 +44,21 @@ const City = () => {
     useEffect ( () => {
         const handleCities = async () => { // handle selectedCity data
             try {
-            let res = await fetch(`/cities/${city}`) // first try fetching on city only
+            let res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cities/${city}`) // first try fetching on city only
             let data = await res.json()
             if (data.status >= 300) {
                 throw new Error(data.message);
             }
             if (data.data.included.length === 0 ) { // if the city doesn't include a photo, fetch on country
-                res = await fetch(`/cities/${country}`)
+                res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cities/${country}`)
                 data = await res.json()
             }
             if (!data.data.data[0].relationships.featured_photo.data) { // another place to check for included photo
-                res = await fetch(`/cities/${country}`)
+                res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cities/${country}`)
                 data = await res.json()
             }
             if (data.data.data.length === 0) { // if the city doesn't exist in RoadGoat API db, fetch on country
-                res = await fetch(`/cities/${country}`)
+                res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cities/${country}`)
                 data = await res.json()
             }
             setSelectedCity(data.data);

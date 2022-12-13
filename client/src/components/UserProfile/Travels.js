@@ -16,7 +16,7 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
         e.preventDefault(); //prevent default behavior
         e.stopPropagation(); // this will stop the parent component's event from firing. 
         // fetch on username (from Auth0 hook) and _id (set in fetch in map method in child component Travels)
-        fetch(`/get-travel/${user.name}/${travel._id}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/get-travel/${user.name}/${travel._id}`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {
@@ -42,7 +42,7 @@ const Travels = ({ travelState, handleRemove, setFormData, setUpdateId, setUpdat
 
     useEffect ( () => {
         if (user) { // wait for the user to be set
-        fetch(`/get-travels/${user.name}`) // fetch on username
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/get-travels/${user.name}`) // fetch on username
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {

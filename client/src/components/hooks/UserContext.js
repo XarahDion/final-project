@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
 
     useEffect ( () => {
         if (selectedYear && !user) { // if user is not logged in and selectedYear is set, fetch concerts by year
-        fetch(`/concerts/${selectedYear}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/concerts/${selectedYear}`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {
@@ -34,7 +34,7 @@ const UserProvider = ({ children }) => {
 
     useEffect ( () => {
         if (selectedYear && user) { // if user is logged in and selectedYear is set, fetch user travels by year
-        fetch(`/travels/${user.name}/${selectedYear}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/travels/${user.name}/${selectedYear}`)
         .then(results => results.json())
         .then ( data => {
             if(data.status >= 300) {
