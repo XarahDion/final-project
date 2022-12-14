@@ -38,7 +38,7 @@ express()
 .use(express.urlencoded({ extended: false }))
 .use("/", express.static(__dirname + "/"))
 .use(cors({
-    origin: ['https://earth-trotter.onrender.com']
+    origin: ['https://earth-trotter.onrender.com', 'https://www.earth-trotter.xarahdion.com']
 }))
 
 .get("/concerts", getConcerts)
