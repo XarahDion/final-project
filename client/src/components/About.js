@@ -42,15 +42,15 @@ const Credit= styled.a`
     font-family: var(--font-body);
     font-size: 11px;
     position: fixed;
-    right: 34px;
-    top: 200px;
+    left: 24px;
+    top: 220px;
     font-style: italic;
 `
 const SidebarLeft = styled.div`
     color: white;
     position: fixed;
     left: 150px;
-    top: 340px;
+    top: 360px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -59,18 +59,17 @@ const SidebarRight = styled.div`
     color: white;
     position: fixed;
     right: 150px;
-    top: 340px;
+    top: 360px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 `
 const BioDiv = styled.div`
     font-family: var(--font-body);
-    font-size: 13px;
+    font-size: 12px;
     color: white;
     width: 900px;
     line-height: 22px;
-    margin: 10px;
     text-align: center;
 `
 const Title = styled.div`
@@ -79,7 +78,7 @@ const Title = styled.div`
     color: white;
     width: 800px;
     line-height: 22px;
-    margin: 10px;
+    margin-top: 10px ;
     text-align: center;
     font-weight: 600;
 `
