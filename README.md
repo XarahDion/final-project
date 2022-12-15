@@ -5,7 +5,7 @@
   </a>
 </p>
 
-> Full-stack MERN App for logging travels, displayed as markers on a world map making use of MapboxGL API. The travels can also be accessed, deleted and updated in a user profile page. Furthermore, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live app.
+> Full-stack MERN App for logging travels, displayed as markers on a an interactive world map. The travels can also be accessed, deleted and updated in a user profile page. Also, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live app.
 > 
 
 [<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1670347670/Untitled_v6w1nr.png" >](https://www.earth-trotter.xarahdion.com/)
