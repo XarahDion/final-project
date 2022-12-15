@@ -8,7 +8,7 @@
 > Full-stack MERN App for logging travels. The coordinates are gathered with OpenCage API, the travels are then stored in MongoDB, displayed as markers on a world map making use of MapboxGL API. The travels can also be accessed, deleted and updated in a user profile page made possible with Auth0 API. Furthermore, a city page can be displayed for each travel logged with the help of RoadGoat API. The deployment is a WIP as I've just started learning about CI/CD.
 > 
 
-[<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1670347670/Untitled_v6w1nr.png" >](https://earth-trotter.onrender.com/)
+[<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1670347670/Untitled_v6w1nr.png" >](https://www.earth-trotter.xarahdion.com/)
 
 ## Install
 
