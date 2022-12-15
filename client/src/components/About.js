@@ -66,7 +66,7 @@ const SidebarRight = styled.div`
 `
 const BioDiv = styled.div`
     font-family: var(--font-body);
-    font-size: 12px;
+    font-size: 13px;
     color: white;
     width: 900px;
     line-height: 22px;
