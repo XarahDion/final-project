@@ -5,10 +5,17 @@
   </a>
 </p>
 
-> Full-stack MERN App for logging travels. The coordinates are gathered with OpenCage API, the travels are then stored in MongoDB, displayed as markers on a world map making use of MapboxGL API. The travels can also be accessed, deleted and updated in a user profile page made possible with Auth0 API. Furthermore, a city page can be displayed for each travel logged with the help of RoadGoat API. The deployment is a WIP as I've just started learning about CI/CD.
+> Full-stack MERN App for logging travels. The coordinates are gathered with OpenCage API, the travels are then stored in MongoDB, displayed as markers on a world map making use of MapboxGL API. The travels can also be accessed, deleted and updated in a user profile page made possible with Auth0 API. Furthermore, a city page can be displayed for each travel logged with the help of RoadGoat API. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live app.
 > 
 
 [<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1670347670/Untitled_v6w1nr.png" >](https://www.earth-trotter.xarahdion.com/)
+
+> Coordinates are generated in the backend with OpenCage API and stored in MongoDB along with the travel date, city, country and an optional field for location and/or details. The travels are displayed conditionally on the world map according to the year selected in the header in a dropdown menu. A city page is accessed by clicking the marker popups, where an image, “known for” tags and coordinates are displayed. These resources are retrieved from RoadGoat API and tested before rendering. For example, if there are no images in the database for the chosen city, the results fall back to the country image.
+>
+> User travels can be accessed, deleted and updated in a user profile page made possible through Auth0 API. A form ensures the posting and updating of the travels and a travel collection makes deleting and updating possible. Form validation is executed in the backend to ensure the data entered by the user will be compatible with requests sent to both OpenCage and RoadGoat APIs. For example, if the city or country doesn’t exist in OpenCage’s database, an error will be sent to the frontend. 
+>
+>Two more challenging aspects of the project were learning how to use the MapboxGL API, its associated methods and properties, and data access and manipulation in the backend. The functionalities sought for with MapboxGL in the frontend required going beyond the tutorials, digging through the documentation and troubleshooting unwanted behaviors. Finally, building the Node.js server in the backend needed implementing a RESTful API alongside connecting with MongoDB and third-party APIs, each requiring their own handlers for requests and results. 
+>
 
 ## Install
 
