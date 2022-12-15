@@ -142,7 +142,6 @@ const Profile = () => {
 
 const Main =styled.div`
     overflow-x: hidden;
-    
 `
 const Img = styled.img`
     border-radius: 5px;

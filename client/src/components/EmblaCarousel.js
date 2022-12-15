@@ -38,7 +38,7 @@ const EmblaCarousel = ({ options = { loop: false } }) => {
 };
 
 const EmblaSlideshowWrapper = styled.div`
-  height: 300px;
+  height: 180px;
   overflow: hidden;
   width: 100vw;
   display: flex;
@@ -50,7 +50,7 @@ const EmblaContainer = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: -250px;
+  margin-top: -340px;
   .embla__slide {
     display: flex;
     max-width: 100vw;

@@ -17,14 +17,11 @@ const About = () => {
                 <FiFacebook size={22}/></a>
         </SidebarLeft>
         <Credit href="http://www.mayamorphosis.com/" target="blank">Photos by Mayamorphosis</Credit>
-        <Title >About Earth Trotter and Xarah Dion</Title>
-        <BioDiv>Earth Trotter is Xarah Dion's final project for the Concordia University Full-Stack MERN Web Developement Bootcamp.
-            It makes use of HTML, CSS, ES6 JavasScript and React on the front-end, NodeJS, ExpressJS and MongoDB on the back-end, and intergrates the following APIs : OpenCage, MapboxGL, Auth0 and RoadGoat.
-            Music producer, touring musician, longtime recording artist, now transitioning into full-stack web development, honing her coding skills with the same passion and attention to detail and method she acquired in her music career.
-        </BioDiv>
-        <BioDiv>Earth Trotter est le projet final de Xarah Dion pour le bootcamp en développement Web Full-Stack MERN de l'université Concordia.
-            Il nécessite la connaissance de HTML, CSS, ES6 JavasScript et React sur le front-end, NodeJS, ExpressJS et MongoDB sur le back-end, et utilise les API suivantes : OpenCage, MapboxGL, Auth0 et RoadGoat.
-            Productrice de musique, musicienne de tournée, artiste d'enregistrement de longue date, en transition vers le développement Web, perfectionnant ses compétences en codage avec la même passion et soucis du détail et de la méthode qu'elle a acquis dans sa carrière musicale.
+        <Title >About Earth Trotter</Title>
+        <BioDiv><p>Earth Trotter is Xarah Dion's final project for the Concordia University Web Development Bootcamp. A full-stack MERN app making use of HTML, CSS, ES6 JavasScript and React on the frontend, NodeJS, ExpressJS and MongoDB on the backend. Its main functionality is to display logged travels as markers on an interactive world map with the help of MapboxGL API. </p>
+                <p>Coordinates are generated in the backend with OpenCage API and stored in MongoDB along with the travel date, city, country and an optional field for location and/or details. The travels are displayed conditionally on the world map according to the year selected in the header in a dropdown menu. A city page is accessed by clicking the marker popups, where an image, “known for” tags and coordinates are displayed. These resources are retrieved from RoadGoat API and tested before rendering. For example, if there are no images in the database for the chosen city, the results fall back to the country image.</p>
+                <p>User travels can be accessed, deleted and updated in a user profile page made possible through Auth0 API. A form ensures the posting and updating of the travels and a travel collection makes deleting and updating possible. Form validation is executed in the backend to ensure the data entered by the user will be compatible with requests sent to both OpenCage and RoadGoat APIs. For example, if the city or country doesn’t exist in OpenCage’s database, an error will be sent to the frontend. </p>
+                <p>Two more challenging aspects of the project were learning how to use the MapboxGL API, its associated methods and properties, and data access and manipulation in the backend. The functionalities sought for with MapboxGL in the frontend required going beyond the tutorials, digging through the documentation and troubleshooting unwanted behaviors. Finally, building the Node.js server in the backend needed implementing a RESTful API alongside connecting with MongoDB and third-party APIs, each requiring their own handlers for requests and results. </p>
         </BioDiv>
         <SidebarRight>
         <a href="https://soundcloud.com/zodiaquemusique" target="blank">
@@ -46,14 +43,14 @@ const Credit= styled.a`
     font-size: 11px;
     position: fixed;
     right: 34px;
-    top: 320px;
+    top: 200px;
     font-style: italic;
 `
 const SidebarLeft = styled.div`
     color: white;
     position: fixed;
     left: 150px;
-    top: 430px;
+    top: 340px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -62,7 +59,7 @@ const SidebarRight = styled.div`
     color: white;
     position: fixed;
     right: 150px;
-    top: 430px;
+    top: 340px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -71,7 +68,7 @@ const BioDiv = styled.div`
     font-family: var(--font-body);
     font-size: 12px;
     color: white;
-    width: 800px;
+    width: 900px;
     line-height: 22px;
     margin: 10px;
     text-align: center;
