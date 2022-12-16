@@ -1,5 +1,6 @@
 import { useEffect, useState, createContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext(null);
 
@@ -8,6 +9,7 @@ const UserProvider = ({ children }) => {
     const [concerts, setConcerts] = useState();
     const [selectedYear, setSelectedYear] = useState();
     const [travels, setTravels] = useState();
+    const [french, setFrench] = useState(null)
     const { user } = useAuth0();
 
     const handleYears = (e) => { // sets the value for selectedYear
@@ -51,7 +53,7 @@ const UserProvider = ({ children }) => {
     }, [selectedYear, user]); // fetch again when year changes
     
     return (
-    <UserContext.Provider value={{ concerts, handleYears, selectedYear, travels }}>
+    <UserContext.Provider value={{ concerts, handleYears, selectedYear, travels, setFrench, french }}>
         {children}
     </UserContext.Provider>
     );

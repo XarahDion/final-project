@@ -1,14 +1,21 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FiGlobe } from "react-icons/fi";
 import UserMenu from "./UserMenu";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../hooks/UserContext';
 
 const Header = () =>{
     const [years, setYears] = useState([]); // initialize a state for years' array
     const { user, isAuthenticated, isLoading } = useAuth0(); // import variables from useAuth0 hook
     const navigate = useNavigate(); //declare navigate as a function
+    const { setFrench } = useContext(UserContext); 
+
+    const handleClick = (e) => { // sets french as the language for about page
+        setFrench(true);
+        navigate("/about")
+    }
 
     useEffect ( () => {
         if (user) // if user is logged in fetch years' array from username db collection
@@ -52,9 +59,12 @@ const Header = () =>{
                     <Span>Earth Trotter</Span>
                     <FiGlobe /> 
                 </Greet>
-                <Greet onClick={() => {window.location.href = '/about';}}>
+                <About onClick={handleClick}>
+                    <Span>À propos</Span>
+                </About>
+                <About onClick={() => {window.location.href = '/about';}}>
                     <Span>About</Span>
-                </Greet>
+                </About>
             </Div>
             <UserMenu user={user} // pass down Auth0 hook variables and parent state to child component
                 isAuthenticated={isAuthenticated}
@@ -72,6 +82,7 @@ const Greet = styled.button`
     font-weight: 600;
     height: 28px;
     width: 120px;
+    margin-right: 8px;
     display: flex;
     align-items: center;
     font-size: 12px;
@@ -81,6 +92,21 @@ const Greet = styled.button`
         cursor: pointer;
     }
 `
+const About = styled.button`
+    padding: 0px;
+    font-weight: 600;
+    height: 28px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: white;
+    background-color: black;
+    &:hover{
+        cursor: pointer;
+    }
+`
+
 const Span = styled.p`
     margin: 0px 6px;
     color: white;
