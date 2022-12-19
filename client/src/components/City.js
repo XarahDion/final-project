@@ -138,6 +138,7 @@ const Logo = styled.img`
 `
 const Div = styled.div`
     position: fixed;
+    top: 36px;
 `
 const Title = styled.div`
     background-color: rgba(35, 55, 75, 0.9);
