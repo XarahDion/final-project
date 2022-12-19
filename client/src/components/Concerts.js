@@ -81,6 +81,10 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     font-family: var(--font-body);
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    transform: translate(-50%, -0%);
 `
 const Container = styled.div`
     width: 600px;
@@ -92,6 +96,7 @@ const Container = styled.div`
     border-radius: 5px;
     padding: 24px;
     margin: 20px;
+    background-color: white;
 `
 const TravelDiv= styled.div`
     font-size: 12px;

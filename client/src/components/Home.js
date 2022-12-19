@@ -115,7 +115,7 @@ const Home = () => {
 
     return (
         <Div>
-            {travels ? // if user is not logged in, display coords on travels change
+            {(travels || concerts )?
             <div className="sidebar">
                 Longitude: {coords[0]} | Latitude: {coords[1]} | Zoom: {zoom}
             </div>
@@ -131,5 +131,6 @@ const Home = () => {
 
 const Div = styled.div`
     position: fixed;
+    top: 36px;
 `
 export default Home;

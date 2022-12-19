@@ -7,6 +7,11 @@ import { useContext } from "react";
 const About = () => {
     const { french } = useContext(UserContext); 
 
+    function changeBackground(color) {
+        document.body.style.background = color;
+    }
+    window.addEventListener("load", function() { changeBackground('black') });
+
     return (
     <Wrapper>
         <EmblaCarousel />
@@ -101,8 +106,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
     background-color: black;
+    overflow-x: hidden;
     height: 100vh;
+    position: fixed;
+    top: 36px;
 `
 export default About;

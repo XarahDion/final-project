@@ -41,6 +41,8 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
+        height:100%;
+        overflow:auto;
     }
     ol, ul {
         list-style: none;

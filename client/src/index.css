@@ -10,7 +10,7 @@
     font-family: monospace;
     z-index: 1;
     position: absolute;
-    top: 85vh;
+    bottom: 8vh;
     left: 0;
     margin: 12px 24px;
     border-radius: 4px;

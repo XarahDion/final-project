@@ -120,6 +120,12 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     background: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw ;
+    box-sizing: border-box;
 `
 
 export default Header;

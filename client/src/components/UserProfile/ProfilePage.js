@@ -142,6 +142,8 @@ const Profile = () => {
 
 const Main =styled.div`
     overflow-x: hidden;
+    position: absolute;
+    top: 36px;
 `
 const Img = styled.img`
     border-radius: 5px;
