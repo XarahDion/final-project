@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import logo from "../assets/loadingIcon.gif";
 import { useNavigate } from "react-router-dom";
 import { FiActivity } from "react-icons/fi";
+import Weather from './Weather';
 
-// component displaying a city's picture, coordinates and "know for" tags retrieved from the RoadGoat API
+// component displaying a city's picture, coordinates and "known for" tags retrieved from the RoadGoat API
 const City = () => {
     const [selectedCity, setSelectedCity] = useState(null); // declare selectedCity state
     const { city, country } = useParams(); // use city + country as params from Travels (in list) or Home (in popup) components
@@ -77,13 +78,13 @@ const City = () => {
         {/* display the city or country picture */}
             <Banner src={selectedCity.included[0].attributes.image.full} alt={city} /> 
             <Title>{city}, {country}</Title>
-            {newarr.length !== 0 ? // display the known for tags is they exist
+            {newarr.length !== 0 ? // display the "known for" tags if they exist
             <Container>
                 <FiDiv>
                     <FiActivity /><Span>Known For</Span><FiActivity />
                 </FiDiv>
                 <KnownFor>
-                {newarr.map((item) => { // map on newarr in which we have pushed the known for tags
+                {newarr.map((item) => { // map on newarr in which we have pushed the "known for" tags
                     return (
                         <Span key={item}>{item}</Span>
                     )
@@ -91,6 +92,7 @@ const City = () => {
                 </KnownFor>
             </Container>
             : <></>}
+            <Weather lat={lat} lon={lon} />
             <div className="sidebar"> 
             {/* display the longitude and latitude */}
                 Longitude: {lon} | Latitude: {lat}
@@ -118,11 +120,12 @@ const Container = styled.div`
     font-family: monospace;
     z-index: 1;
     position: absolute;
-    top: 70px;
-    left: 50%;
-    transform: translate(-100px, 0%);
+    top: 20%;
+    left: 24px;
+    /* left: 50%;
+    transform: translate(-100px, 0%); */
     border-radius: 4px;
-    width: 200px;
+    width: 285px;
     text-align: center;
 `
 const KnownFor = styled.div`
@@ -148,11 +151,12 @@ const Title = styled.div`
     z-index: 1;
     position: absolute;
     top: 24px;
-    left: 50%;
-    transform: translate(-100px, 0%);
+    left: 24px;
+    /* left: 50%;
+    transform: translate(-100px, 0%); */
     border-radius: 4px;
     text-align: center;
-    width: 200px;
+    width: 285px;
 `
 const Banner = styled.img`
     width: 100vw;
