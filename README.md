@@ -8,7 +8,7 @@
 > Full-stack MERN App for logging travels, displayed as markers on a an interactive world map. The travels can also be accessed, deleted and updated in a user profile page. Also, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live website.
 > 
 
-[<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1670347670/Untitled_v6w1nr.png" >](https://www.earth-trotter.xarahdion.com/)
+[<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1672246033/screencapture-earth-trotter-xarahdion-2022-12-28-11_47_00_koxcbx.png" >](https://www.earth-trotter.xarahdion.com/)
 
 > Coordinates are generated in the backend with OpenCage API and stored in MongoDB along with the travel date, city, country and an optional field for location and/or details. The travels are displayed conditionally on the world map according to the year selected in the header in a dropdown menu. A city page is accessed by clicking the marker popups, where an image, “known for” tags and coordinates are displayed. These resources are retrieved from RoadGoat API and tested before rendering. For example, if there are no images in the database for the chosen city, the results fall back to the country image. The city page also presents a current weather widget with icon, temperatures and other parameters collected from OpenWeather API.
 >
