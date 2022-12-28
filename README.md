@@ -16,7 +16,6 @@
 > User travels can be accessed, deleted and updated in a user profile page made possible through Auth0 API. A form ensures the posting and updating of the travels and a travel collection makes deleting and updating possible. Form validation is executed in the backend to ensure the data entered by the user will be compatible with requests sent to both OpenCage and RoadGoat APIs. For example, if the city or country doesn’t exist in OpenCage’s database, an error will be sent to the frontend. 
 > 
 [<img src='https://res.cloudinary.com/dojn5va73/image/upload/v1672246404/screencapture-earth-trotter-onrender-profile-2022-12-28-11_53_15_oha1db.png' >](https://www.earth-trotter.xarahdion.com/)
-
 >Two more challenging aspects of the project were learning how to use the MapboxGL API, its associated methods and properties, and data access and manipulation in the backend. The functionalities sought for with MapboxGL in the frontend required going beyond the tutorials, digging through the documentation and troubleshooting unwanted behaviors. Finally, building the Node.js server in the backend needed implementing a RESTful API alongside connecting with MongoDB and third-party APIs, each requiring their own handlers for requests and results. 
 >
 
