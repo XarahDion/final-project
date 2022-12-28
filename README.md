@@ -29,7 +29,7 @@ yarn install
 
 👤 **Xarah Dion**
 
-* Website: www.xarahdion.com
+* Website: www.earth-trotter.xarahdion.com
 * Twitter: [@XarahDion](https://twitter.com/XarahDion)
 * Github: [@XarahDion](https://github.com/XarahDion)
 * LinkedIn: [@xarahdion](https://linkedin.com/in/xarahdion)
