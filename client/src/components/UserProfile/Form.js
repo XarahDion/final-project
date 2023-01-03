@@ -98,13 +98,21 @@ const DetDiv = styled.div`
 const InDiv = styled.div `
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0px 60px;
+    @media (max-width: 844px) {
+        padding: 0px;
+        flex-direction: column;
+    }
 `
 const InstDiv = styled.div `
     font-size: 10px;
     display: flex;
     justify-content: space-between;
     padding: 0px 80px;
+    @media (max-width: 844px) {
+        padding: 0px 10px 5px 10px;
+    }
 `
 const Button = styled.button`
     width: 160px;
@@ -112,14 +120,19 @@ const Button = styled.button`
     align-self: center;
     font-size: 11px;
     height: 30px;
+    color: black;
+    font-weight: 200;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     &:hover:enabled{
         cursor: pointer;
         background-color: white;
         transition: 0.5s;
     }
-    &:disabled&:hover {
+    &:disabled:hover {
         background-color: none;
+    }
+    @media (max-width: 844px) {
+        width: 80px;
     }
 `
 const StyledForm = styled.form`
@@ -132,6 +145,12 @@ const StyledForm = styled.form`
     border-radius: 5px;
     gap: 5px;
     font-size: 12px;
+    @media (max-width: 844px) {
+        font-size: 11px;
+        max-width: auto;
+        gap: 0;
+        margin: 10px;
+    }
 `
 
 export default Form

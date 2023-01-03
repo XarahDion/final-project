@@ -144,6 +144,9 @@ const Main =styled.div`
     overflow-x: hidden;
     position: absolute;
     top: 36px;
+    @media (max-width: 844px) {
+        top: 24px;
+    }
 `
 const Img = styled.img`
     border-radius: 5px;
@@ -154,6 +157,10 @@ const Name = styled.div`
     margin-top: 12px;
     margin-bottom: -8px;
     font-size: 12px;
+    @media (max-width: 844px) {
+        margin-top: 4px;
+        margin-bottom: 0;
+    }
 `
 const Div = styled.div`
     display: flex;
@@ -162,6 +169,9 @@ const Div = styled.div`
     align-items: center;
     font-family: var(--font-body);
     margin-top: 26px;
+    @media (max-width: 844px) {
+        flex-direction: column;
+    }
 `
 const ImgDiv = styled.div`
     display: flex;
@@ -172,6 +182,11 @@ const ImgDiv = styled.div`
     padding: 24px;
     height: 185px;
     width: 169px;
+    @media (max-width: 844px) {
+        padding: 10px;
+        width: auto;
+        height: auto;
+    }
 `
 
 export default Profile;

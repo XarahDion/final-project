@@ -21,6 +21,10 @@ const StyledInput = styled.input`
     border: 2px solid #EEEFF4;
     padding: 8px;
     margin: 5px 10px;
+    @media (max-width: 844px) {
+        width: 240px;
+        font-size: 11px;
+    }
 `
 
 export default Input

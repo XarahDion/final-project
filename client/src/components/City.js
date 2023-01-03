@@ -112,6 +112,9 @@ const FiDiv = styled.div`
 const Span = styled.span`
     line-height: 20px;
     padding: 0px 8px;
+    @media (max-width: 844px) {
+        font-size: 10px;
+    }
 `
 const Container = styled.div`
     background-color: rgba(35, 55, 75, 0.9);
@@ -122,11 +125,16 @@ const Container = styled.div`
     position: absolute;
     top: 20%;
     left: 24px;
-    /* left: 50%;
-    transform: translate(-100px, 0%); */
     border-radius: 4px;
     width: 285px;
     text-align: center;
+    @media (max-width: 844px) {
+        flex-direction: column;
+        display: flex;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
 `
 const KnownFor = styled.div`
     display: flex;
@@ -152,11 +160,13 @@ const Title = styled.div`
     position: absolute;
     top: 24px;
     left: 24px;
-    /* left: 50%;
-    transform: translate(-100px, 0%); */
     border-radius: 4px;
     text-align: center;
     width: 285px;
+    @media (max-width: 844px) {
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
 `
 const Banner = styled.img`
     width: 100vw;

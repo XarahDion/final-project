@@ -79,38 +79,33 @@ const Div = styled.div`
     align-items: center;
 `
 const Greet = styled.button`
-    font-weight: 600;
     height: 28px;
     width: 120px;
     margin-right: 8px;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: white;
     background-color: black;
     &:hover{
         cursor: pointer;
+    }
+    @media (max-width: 844px) {
+        width: 100px;
+        margin: 0px;
     }
 `
 const About = styled.button`
     padding: 0px;
-    font-weight: 600;
     height: 28px;
     width: 60px;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: white;
     background-color: black;
     &:hover{
         cursor: pointer;
     }
+    @media (max-width: 844px) {
+        display: none;
+    }
 `
-
 const Span = styled.p`
     margin: 0px 6px;
     color: white;
-    font-size: 12px;
 `
 const Wrapper = styled.div`
     font-size: 12px;
@@ -126,6 +121,10 @@ const Wrapper = styled.div`
     z-index: 2;
     width: 100vw ;
     box-sizing: border-box;
+    @media (max-width: 844px) {
+        padding: 4px;
+        font-size: 11px;
+    }
 `
 
 export default Header;

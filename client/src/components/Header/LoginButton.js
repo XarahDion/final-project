@@ -8,7 +8,7 @@ const LoginButton = () => {
     return (
         !isAuthenticated && (
             <Login onClick={() => loginWithRedirect()}>
-                <Span>Sign In </Span>
+                <Span>Login</Span>
                 <FiLogIn/>
             </Login>
         )
@@ -17,22 +17,23 @@ const LoginButton = () => {
 
 const Span = styled.div`
     font-weight: 600;
+    margin-right: 2px;
 `
 
 const Login= styled.button`
     height: 28px;
     width: 74px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0px 8px;
     border-radius: 5px;
-    font-size: 12px;
-    color: white;
     background-color: black;
     &:hover{
         cursor: pointer;
         transition: 0.25s;
+    }
+    @media (max-width: 844px) {
+        width: 50px;
+        padding: 0px;
     }
 `
 

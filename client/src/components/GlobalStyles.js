@@ -62,14 +62,30 @@ const GlobalStyle = createGlobalStyle`
     button {
         padding: 0px 4px;
         border: none;
+        font-size: 12px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        color: white;
+        font-weight: 600;
+        @media (max-width: 844px) {
+            font-size: 10px;
+            padding: 0px 2px;
+    }
     }
     label {
         font-family: var(--font-body);
         color: white;
         font-weight: 600;
+        @media (max-width: 844px) {
+            display: none;
+    }
     }
     option {
         font-size: 12px;
+        @media (max-width: 844px) {
+            font-size: 11px;
+    }
     }
     a {
         text-decoration: none;

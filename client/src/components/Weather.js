@@ -42,7 +42,7 @@ const Weather = ({lat, lon}) => {
             <Div>DAILY LOW <p>{Math.round(weatherData.daily[0].temp.min)} °C </p></Div>
         </Left>
         <Right>
-            <Div>WIND SPEED <p>{Math.round((weatherData.current.wind_speed)*3.6)} km/h</p></Div>
+            <Div>WIND <p>{Math.round((weatherData.current.wind_speed)*3.6)} km/h</p></Div>
             <Div>HUMIDITY <p>{weatherData.daily[0].humidity} %</p></Div>
         </Right>
         </Container>
@@ -65,27 +65,44 @@ const Title = styled.div`
     border-radius: 4px;
     text-align: center;
     width: 285px;
+    @media (max-width: 844px) {
+        display: none;
+    }
 `
 const Container = styled.div`
     display: flex;
     margin-top: 12px;
+    @media (max-width: 844px) {
+        margin: 0px;
+    }
 `
 const Left = styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width: 844px) {
+        flex-direction: row;
+    }
 `
 const Right = styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width: 844px) {
+        flex-direction: row;
+    }
 `
 const Div = styled.div`
     font-size: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-end;
     height: 50px;
     padding: 10px;
     margin: 0px 10px 10px 10px;
+    @media (max-width: 844px) {
+        font-size: 12px;
+        margin: 0px;
+        width: 45px;
+    }
 `
 const Logo = styled.img`
     width: 50px;
@@ -117,5 +134,11 @@ const Details = styled.div`
     border-radius: 4px;
     width: 285px;
     text-align: center;
+    @media (max-width: 844px) {
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        padding: 0px 12px;
+    }
 `
 export default Weather;

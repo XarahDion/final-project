@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Dropdown from "./Dropdown";
 
 const UserMenu = ({user, isAuthenticated, isLoading, years}) => {
-
     return (
         <>
         {isLoading? <Greet></Greet> // if loading, do not display the optional dropdown and buttons
@@ -20,7 +19,7 @@ const UserMenu = ({user, isAuthenticated, isLoading, years}) => {
         <>
         <Profile to="/profile">
             <Greet>
-                {user.name}'s Profile
+                {user.name.replace(/ .*/,'')}'s Profile
                 {user?.picture && 
                 <Img async="on" src={user.picture} alt={user?.name} />
                 }
@@ -32,7 +31,7 @@ const UserMenu = ({user, isAuthenticated, isLoading, years}) => {
         {/* if user is not authenticated display all concerts and log in button */}
         <Profile to="/concerts"> 
             <Greet>
-                All Concerts
+                Concerts
                 <Img async="on" src={avatar} alt="Xarah" />
             </Greet>
         </Profile>
@@ -60,12 +59,7 @@ const Div = styled.div`
     gap: 8px;
 `
 const Greet = styled.button`
-    font-weight: 600;
     height: 28px;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: white;
     background-color: black;
     &:hover{
         cursor: pointer;

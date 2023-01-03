@@ -65,6 +65,10 @@ const Div= styled.div`
     display: flex;
     justify-content: flex-start;
     width: 160px;
+    @media (max-width: 844px) {
+        width: 110px;
+        font-size: 10px;
+    }
 `
 const Name = styled.div`
     font-weight: 600;
@@ -87,7 +91,6 @@ const Main = styled.div`
     transform: translate(-50%, -0%);
 `
 const Container = styled.div`
-    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,10 +100,13 @@ const Container = styled.div`
     padding: 24px;
     margin: 20px;
     background-color: white;
+    @media (max-width: 844px) {
+        padding: 12px;
+        margin: 0px;
+    }
 `
 const TravelDiv= styled.div`
     font-size: 12px;
-    width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -111,6 +117,9 @@ const TravelDiv= styled.div`
         cursor: pointer;
         background-color: #F0F0F0;
         transition: 0.5s;
+    }
+    @media (max-width: 844px) {
+        padding: 12px;
     }
 `
 export default Concerts;

@@ -101,17 +101,23 @@ const Span = styled.span`
     font-size: 11px;
     font-family: var(--font-body);
 `
-
 const BtnDiv = styled.div`
     display: flex;
     justify-content: space-between;
     width: 80px;
+    @media (max-width: 844px) {
+        justify-content: flex-end;
+        gap: 5px;
+        margin-right: 2px;
+    }
 `
 const Btn = styled.button`
     padding: 0px 6px;
     border-radius: 5px;
     font-size: 11px;
     font-weight: 200;
+    color: black;
+    background-color: white;
     align-self: center;
     height: 20px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -120,16 +126,29 @@ const Btn = styled.button`
         background-color: white;
         transition: 0.5s;
     }
+    @media (max-width: 844px) {
+        font-size: 10px;
+        padding: 4px;
+        height: 16px;
+    }
 `
 const Div= styled.div`
     display: flex;
     justify-content: flex-start;
     width: 150px;
+    @media (max-width: 844px) {
+        width: auto;
+        padding: 5px;
+    }
 `
 const Name = styled.div`
     font-weight: 600;
     font-size: 13px;
     margin-bottom: 10px;
+    @media (max-width: 844px) {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
 `
 const Logo = styled.img`
     width: 40px;
@@ -141,6 +160,9 @@ const Main = styled.div`
     align-items: center;
     font-family: var(--font-body);
     margin: 24px 0px;
+    @media (max-width: 844px) {
+        margin: 2px;
+    }
 `
 const Container = styled.div`
     width: 700px;
@@ -150,6 +172,11 @@ const Container = styled.div`
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
     padding: 24px;
+    @media (max-width: 844px) {
+        width: auto;
+        padding: 12px;
+        align-items: center;
+    }
 `
 const TravelDiv= styled.div`
     font-size: 12px;
@@ -163,6 +190,11 @@ const TravelDiv= styled.div`
         cursor: pointer;
         background-color: #F0F0F0;
         transition: 0.5s;
+    }
+    @media (max-width: 844px) {
+        width: auto;
+        padding: 4px;
+        font-size: 10px;
     }
 `
 export default Travels
