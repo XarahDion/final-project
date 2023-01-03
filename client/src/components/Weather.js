@@ -117,7 +117,7 @@ const ImgDiv = styled.div`
     justify-content: space-between;
     align-items: center;
     @media (max-width: 844px) {
-        margin-top: -10px;
+        margin: -12px;
     }
 `
 const Img = styled.img`
