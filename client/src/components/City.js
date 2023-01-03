@@ -131,7 +131,7 @@ const Container = styled.div`
     @media (max-width: 844px) {
         flex-direction: column;
         display: flex;
-        top: 11%;
+        top: 13%;
         left: 50%;
         transform: translate(-50%, 0%);
     }
@@ -152,7 +152,6 @@ const Div = styled.div`
     top: 36px;
     @media (max-width: 844px) {
         position: static;
-
     }
 `
 const Title = styled.div`

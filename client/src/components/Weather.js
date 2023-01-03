@@ -138,7 +138,7 @@ const Details = styled.div`
     width: 285px;
     text-align: center;
     @media (max-width: 844px) {
-        top: 55%;
+        top: 67%;
         left: 50%;
         transform: translate(-50%, 0%);
         padding: 0px 12px;
