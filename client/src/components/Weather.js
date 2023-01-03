@@ -142,6 +142,7 @@ const Details = styled.div`
         left: 50%;
         transform: translate(-50%, 0%);
         padding: 0px 12px;
+        margin-bottom: 40px;
     }
 `
 export default Weather;
