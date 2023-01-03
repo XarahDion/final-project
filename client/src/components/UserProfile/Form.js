@@ -91,6 +91,9 @@ const BtnDiv = styled.div`
     display: flex;
     justify-content: center;
     gap: 24px;
+    @media (max-width: 844px) {
+        margin-top: -10px;
+    }
 `
 const DetDiv = styled.div`
     justify-content: space-between;

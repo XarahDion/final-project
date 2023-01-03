@@ -60,7 +60,6 @@ const Span = styled.span`
     font-size: 11px;
     font-family: var(--font-body);
 `
-
 const Div= styled.div`
     display: flex;
     justify-content: flex-start;
@@ -74,6 +73,9 @@ const Name = styled.div`
     font-weight: 600;
     font-size: 13px;
     margin-bottom: 10px;
+    @media (max-width: 844px) {
+        font-size: 12px;
+    }
 `
 const Logo = styled.img`
     width: 40px;
@@ -101,8 +103,9 @@ const Container = styled.div`
     margin: 20px;
     background-color: white;
     @media (max-width: 844px) {
-        padding: 12px;
-        margin: 0px;
+        box-shadow: none;
+        padding: 0;
+        margin: 12px 0px 0px 0px;
     }
 `
 const TravelDiv= styled.div`
@@ -119,7 +122,8 @@ const TravelDiv= styled.div`
         transition: 0.5s;
     }
     @media (max-width: 844px) {
-        padding: 12px;
+        padding: 10px;
+        font-size: 11px;
     }
 `
 export default Concerts;

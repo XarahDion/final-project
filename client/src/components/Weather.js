@@ -116,6 +116,9 @@ const ImgDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 844px) {
+        margin-top: -10px;
+    }
 `
 const Img = styled.img`
 `
@@ -135,7 +138,7 @@ const Details = styled.div`
     width: 285px;
     text-align: center;
     @media (max-width: 844px) {
-        top: 60%;
+        top: 55%;
         left: 50%;
         transform: translate(-50%, 0%);
         padding: 0px 12px;

@@ -151,6 +151,9 @@ const Main =styled.div`
 const Img = styled.img`
     border-radius: 5px;
     height: 150px;
+    @media (max-width: 844px) {
+        height: 50px;
+    }
 `
 const Name = styled.div`
     font-weight: 600;
@@ -158,8 +161,8 @@ const Name = styled.div`
     margin-bottom: -8px;
     font-size: 12px;
     @media (max-width: 844px) {
-        margin-top: 4px;
-        margin-bottom: 0;
+        margin: 4px;
+        font-size: 11px;
     }
 `
 const Div = styled.div`
@@ -186,6 +189,7 @@ const ImgDiv = styled.div`
         padding: 10px;
         width: auto;
         height: auto;
+        flex-direction: row;
     }
 `
 

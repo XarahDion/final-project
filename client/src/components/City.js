@@ -131,7 +131,7 @@ const Container = styled.div`
     @media (max-width: 844px) {
         flex-direction: column;
         display: flex;
-        top: 10%;
+        top: 11%;
         left: 50%;
         transform: translate(-50%, 0%);
     }
@@ -150,6 +150,10 @@ const Logo = styled.img`
 const Div = styled.div`
     position: fixed;
     top: 36px;
+    @media (max-width: 844px) {
+        position: static;
+
+    }
 `
 const Title = styled.div`
     background-color: rgba(35, 55, 75, 0.9);
@@ -164,6 +168,7 @@ const Title = styled.div`
     text-align: center;
     width: 285px;
     @media (max-width: 844px) {
+        top: 46px;
         left: 50%;
         transform: translate(-50%, 0%);
     }

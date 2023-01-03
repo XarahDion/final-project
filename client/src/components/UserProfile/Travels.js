@@ -137,7 +137,7 @@ const Div= styled.div`
     justify-content: flex-start;
     width: 150px;
     @media (max-width: 844px) {
-        width: auto;
+        width: 80px;
         padding: 5px;
     }
 `
@@ -176,6 +176,7 @@ const Container = styled.div`
         width: auto;
         padding: 12px;
         align-items: center;
+        margin-bottom: 10px;
     }
 `
 const TravelDiv= styled.div`
@@ -192,7 +193,7 @@ const TravelDiv= styled.div`
         transition: 0.5s;
     }
     @media (max-width: 844px) {
-        width: auto;
+        width: 300px;
         padding: 4px;
         font-size: 10px;
     }
