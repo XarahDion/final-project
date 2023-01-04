@@ -145,7 +145,10 @@ const KnownFor = styled.div`
 const Logo = styled.img`
     width: 50px;
     height: 50px;
-    margin: 24px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, 0%);
 `
 const Div = styled.div`
     position: fixed;
@@ -170,6 +173,7 @@ const Title = styled.div`
         top: 46px;
         left: 50%;
         transform: translate(-50%, 0%);
+        font-size: 12px;
     }
 `
 const Banner = styled.img`
