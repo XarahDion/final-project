@@ -110,8 +110,8 @@ const Container = styled.div`
     gap: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
-    padding: 12px 36px;
-    margin-top: 20px;
+    padding: 24px 36px;
+    margin-top: 24px;
     background-color: white;
     @media (max-width: 844px) {
         box-shadow: none;
