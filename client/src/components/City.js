@@ -148,7 +148,7 @@ const Logo = styled.img`
     position: absolute;
     top: 50px;
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translate(50%, 0%);
 `
 const Div = styled.div`
     position: fixed;

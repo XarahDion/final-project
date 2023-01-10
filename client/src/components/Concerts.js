@@ -4,17 +4,24 @@ import logo from "../assets/loadingIcon.gif";
 import { useNavigate } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import Pagination from "./Pagination";
 
 const Concerts = () => {
     const [error, setError] = useState(false);
     const [concerts, setConcerts] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [concertsPerPage] = useState(12);
+    const indexOfLastConcert = currentPage * concertsPerPage;
+    const indexOfFirstConcert = indexOfLastConcert - concertsPerPage;
     const navigate = useNavigate();
     
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     const handleClick = (e, concert) => {
         e.preventDefault();
         e.stopPropagation();
         navigate(`/cities/${concert.city}/${concert.country}`)
-    }
+    };
 
     useEffect ( () => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/concerts`)
@@ -31,14 +38,14 @@ const Concerts = () => {
             setError(true);
             navigate("/error"); // send user to error page if fetch error happens
         })
-    }, [])
+    }, []);
 
     return (
         <Main>
             {concerts?
                 <Container>
                 <Name>Xarah Dion Concert Collection</Name>
-                {Object.values(concerts).map((concert) => {
+                {Object.values(concerts.slice(indexOfFirstConcert, indexOfLastConcert)).map((concert) => {
                     if (concert.city !== "Helsinki")
                     return (
                         <Tippy key={concert._id} content={<Span>Go to {concert.city}, {concert.country}</Span>}>
@@ -50,6 +57,10 @@ const Concerts = () => {
                         </Tippy>
                     )
                 })}
+                <Pagination
+                    concertsPerPage={concertsPerPage}
+                    totalConcerts={concerts.length}
+                    paginate={paginate} />
                 </Container>
             : <Logo src={logo} alt="loading" />}
         </Main>
@@ -72,9 +83,9 @@ const Div= styled.div`
 const Name = styled.div`
     font-weight: 600;
     font-size: 13px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     @media (max-width: 844px) {
-        font-size: 12px;
+        font-size: 11px;
     }
 `
 const Logo = styled.img`
@@ -99,12 +110,13 @@ const Container = styled.div`
     gap: 8px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 5px;
-    padding: 24px;
-    margin: 20px;
+    padding: 12px 36px;
+    margin-top: 20px;
     background-color: white;
     @media (max-width: 844px) {
         box-shadow: none;
         padding: 0;
+        gap: 10px;
         margin: 12px 0px 0px 0px;
     }
 `
