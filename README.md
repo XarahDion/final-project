@@ -1,9 +1,4 @@
 <h1 align="center">🌍 Welcome to Earth Trotter 🌏</h1>
-<p>
-  <a href="https://twitter.com/XarahDion" target="_blank">
-    <img alt="Twitter: XarahDion" src="https://img.shields.io/twitter/follow/XarahDion.svg?style=social" />
-  </a>
-</p>
 
 > Full-stack MERN App for logging travels, displayed as markers on a an interactive world map. The travels can also be accessed, deleted and updated in a user profile page. Also, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live website.
 > 
