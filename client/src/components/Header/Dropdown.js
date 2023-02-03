@@ -15,7 +15,7 @@ const Dropdown = ({user, isAuthenticated, years}) => {
         </label>
             <Select onChange={handleYears}> 
             <option value="">Select a year...</option>
-            {!years ? <h1>Loading...</h1>
+            {!years ? <option>Loading...</option>
             : years.sort().reverse().map ((year) => {
                 return  (
                     <option key={year} value={year}>{year}</option>

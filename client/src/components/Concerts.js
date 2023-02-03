@@ -46,7 +46,6 @@ const Concerts = () => {
                 <Container>
                 <Name>Xarah Dion Concert Collection</Name>
                 {Object.values(concerts.slice(indexOfFirstConcert, indexOfLastConcert)).map((concert) => {
-                    if (concert.city !== "Helsinki")
                     return (
                         <Tippy key={concert._id} content={<Span>Go to {concert.city}, {concert.country}</Span>}>
                         <TravelDiv onClick={(e) => handleClick(e, concert)}>

@@ -1,39 +1,39 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Pagination = ({ concertsPerPage, totalConcerts, paginate }) => {
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(totalConcerts/concertsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalConcerts / concertsPerPage); i++) {
         pageNumbers.push(i);
     }
-    
+
     return (
         <nav>
             <Container>
                 Pages:
-                {pageNumbers.map((number) => {
-                    console.log(number)
+                {pageNumbers.map((number, index) => {
                     return (
-                        <a onClick={() => paginate(number)} >
-                        <Item key={number}>
-                        {number}
-                        </Item>
-                        </a>
-                    )
+                        <Button onClick={() => paginate(number)}>
+                            <Item key={index}>{number}</Item>
+                        </Button>
+                    );
                 })}
             </Container>
         </nav>
-    )
+    );
 };
 
+const Button = styled.button`
+    background-color: transparent;
+`
 const Container = styled.ul`
     display: flex;
     align-items: center;
     font-size: 11px;
     gap: 6px;
     margin-top: 10px;
-`
+`;
 const Item = styled.li`
     padding: 6px;
     color: black;
@@ -42,9 +42,9 @@ const Item = styled.li`
     border-radius: 5px;
     &:hover {
         cursor: pointer;
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
         transition: 0.5s;
     }
-`
+`;
 
 export default Pagination;
