@@ -1,6 +1,6 @@
 <h1 align="center">🌍 Welcome to Earth Trotter 🌏</h1>
 
-> Full-stack MERN App for logging travels, displayed as markers on a an interactive world map. The travels can also be accessed, deleted and updated in a user profile page. Also, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live website.
+> *Update required since RoadGoat API is down* Full-stack MERN App for logging travels, displayed as markers on a an interactive world map. The travels can also be accessed, deleted and updated in a user profile page. Also, a city page can be displayed for each travel logged. The deployment is a WIP as I've just started learning about CI/CD. Click on the image below to view the live website.
 > 
 [<img src="https://res.cloudinary.com/dojn5va73/image/upload/v1672246033/screencapture-earth-trotter-xarahdion-2022-12-28-11_47_00_koxcbx.png" >](https://www.earth-trotter.xarahdion.com/)
 
