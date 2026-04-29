@@ -8,7 +8,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.22.0",
-    "follow-redirects": "^1.15.6",
+    "follow-redirects": "^1.16.0",
     "fs": "^0.0.1-security",
     "helmet": "^6.0.0",
     "mongodb": "^4.17.0",
